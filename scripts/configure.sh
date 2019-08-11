@@ -12,5 +12,6 @@ sed -i \
     -e 's/#\(LoadModule cgid_module modules\/mod_cgid.so\)/\1/' \
     -e 's/#\(ServerName www.example.com:80\)/ServerName localhost:80/' \
     -e 's/\/usr\/local\/apache2\/htdocs/\/www\/public/' \
+    -e 's/\(DirectoryIndex index.html\)/\1 index.php/' \
     /usr/local/apache2/conf/httpd.conf;
 echo 'ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://php:9000/www/public/$1' >> /usr/local/apache2/conf/httpd.conf;
