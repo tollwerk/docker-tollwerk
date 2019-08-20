@@ -7,42 +7,17 @@ LABEL maintainer="tollwerk GmbH <info@tollwerk.de>"
 # Include Composer
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
+# Copy install scripts
+COPY .shared/config/php.ini /scripts/
+COPY .shared/scripts/install-php.sh /scripts/
+
 # Install PHP and additional software
-RUN apk --update --no-cache add \
-        php7 \
-        php7-apcu \
-        php7-bcmath \
-        php7-bz2 \
-        php7-dom \
-        php7-ctype \
-        php7-curl \
-        php7-fileinfo \
-        php7-fpm \
-        php7-gd \
-        php7-iconv \
-        php7-intl \
-        php7-json \
-        php7-mbstring \
-        php7-mcrypt \
-        php7-mysqli \
-        php7-opcache \
-        php7-openssl \
-        php7-pcntl \
-        php7-pdo \
-        php7-pdo_mysql \
-        php7-phar \
-        php7-posix \
-        php7-simplexml \
-        php7-session \
-        php7-soap \
-        php7-tokenizer \
-        php7-xml \
-        php7-xmlreader \
-        php7-xmlwriter \
-        php7-xdebug \
-        php7-xsl \
-        php7-zip \
-    && rm -rf /var/cache/apk/*
+RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories \
+    && apk --update --no-cache add \
+        git \
+    && chmod 0755 /scripts/* \
+    && /scripts/install-php.sh \
+    && rm -rf /var/cache/apk/* /scripts
 
 # Expose port 80
 EXPOSE 80

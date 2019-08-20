@@ -5,7 +5,9 @@ const FRACTAL_TITLE = process.env.FRACTAL_TITLE || 'Unspecified';
 const FRACTAL_COMPONENTS_LABEL = process.env.FRACTAL_COMPONENTS_LABEL || 'Patterns';
 
 // Dependencies
-const fractal = module.exports = require('@frctl/fractal').create();
+const path = require('path');
+const fractal = module.exports = require('@frctl/fractal')
+    .create();
 const ComponentCollection = require('@frctl/fractal/src/api/components/collection');
 const ComponentSource = require('@frctl/fractal/src/api/components/source');
 const theme = require('@frctl/mandelbrot')({ 'nav': ['docs', 'components'] });
@@ -43,16 +45,17 @@ function renderComponents(componentSource, options) {
 // Base settings
 fractal.set('project.title', FRACTAL_TITLE);
 fractal.components.set('label', FRACTAL_COMPONENTS_LABEL);
-fractal.components.set('path', '/fractal/components');
-fractal.docs.set('path', '/project/docs');
-fractal.web.set('static.path', '/project/public');
-fractal.web.set('builder.dest', '/fractal/build');
+fractal.components.set('path', 'components');
+fractal.docs.set('path', 'docs');
+fractal.web.set('static.path', path.join(__dirname, 'public'));
+// fractal.web.set('builder.dest', 'build');
 
 // Configure the documentation: Add the renderComponents handler
 const hbs = require('@frctl/handlebars')({
     helpers: {
         componentList: function () {
-            return renderComponents(fractal.components, Array.from(arguments).pop());
+            return renderComponents(fractal.components, Array.from(arguments)
+                .pop());
         }
     }
 });
@@ -70,11 +73,13 @@ fractal.components.set('statuses', Object.assign({
 // If the Fractal instance is connected to a TYPO3 instance
 const TYPO3_URL = process.env.TYPO3_URL || 'http://localhost';
 if (TYPO3_URL) {
+    const logger = require('fancy-log');
+    logger.log = logger.bind(logger);
     const typo3 = require('fractal-typo3');
-    typo3.configure('public', TYPO3_URL, theme);
+    typo3.configure(TYPO3_URL, !!parseInt(process.env.FRACTAL_DEVELOPMENT, 10), theme, logger);
     fractal.components.engine(typo3.engine);
     fractal.components.set('ext', '.t3s');
-    fractal.cli.command('update-typo3 [typo3path]', typo3.update, {
+    fractal.cli.command('update-typo3', typo3.update, {
         description: 'Update the components by extracting them from a TYPO3 instance (defaults to "public")'
     });
 }

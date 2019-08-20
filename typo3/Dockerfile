@@ -4,17 +4,18 @@ FROM daigoro.tollwerk.net:8083/tollwerk/base:latest
 # Maintainer
 LABEL maintainer="tollwerk GmbH <info@tollwerk.de>"
 
-# Copy the build shell scripts into the container
+# Copy the build shell scripts
 COPY typo3/scripts /scripts
 COPY .shared/config/php.ini /scripts/
+
+# Copy fixture files
+COPY typo3/fixture /fixture
 
 # Configure Apache for TYPO3
 RUN chmod 0755 /scripts/* \
     && /scripts/configure-apache.sh \
-    && /scripts/configure-php.sh \
-    && cp /scripts/php.ini /etc/php7/conf.d/50-settings.ini \
     && cp /scripts/bootstrap.sh /bootstrap.sh \
-    && rm -rf /var/cache/apk/* /scripts
+    && rm -rf /scripts
 
 # TYPO3 bootstrapping as entrypoint
 ENTRYPOINT ["/bootstrap.sh"]

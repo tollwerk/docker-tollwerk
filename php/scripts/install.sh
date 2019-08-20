@@ -17,4 +17,4 @@ apk --no-cache add \
   pkgconf \
   nasm \
   npm \
-  sdl-dev;
+  sdl-dev
