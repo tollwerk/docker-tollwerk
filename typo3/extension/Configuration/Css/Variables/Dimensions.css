@@ -1,0 +1,18 @@
+:root {
+    /* Math */
+    --sqrt: 1.4142135623730950488016887242097;
+
+    /* Spacing */
+    --layout-spacing: 1.5em;
+    --layout-spacing--micro: calc(var(--layout-spacing) / 6);
+    --layout-spacing--xtiny: calc(var(--layout-spacing) / 4); /* 6px */
+    --layout-spacing--tiny: calc(var(--layout-spacing) / 3); /* 8px */
+    --layout-spacing--xsmall: calc(var(--layout-spacing) / 2); /* 12px */
+    --layout-spacing--small: calc(var(--layout-spacing--tiny) * 2); /* 16px */
+    --layout-spacing--medium: calc(var(--layout-spacing--xsmall) * 3); /* 36px */
+    --layout-spacing--mega: calc(var(--layout-spacing) * 2); /* 48px */
+    --layout-spacing--giga: calc(var(--layout-spacing--mega) + var(--layout-spacing--small)); /* 64px */
+
+    /* Font spacing */
+    --heading-spacing: .5rem;
+}

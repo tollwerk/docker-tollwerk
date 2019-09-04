@@ -1,0 +1,18 @@
+# customsubcategory=common=LLL:EXT:EXTENSION_KEY_SC/Resources/Private/Language/locallang_db.xlf:common
+# customsubcategory=file=LLL:EXT:EXTENSION_KEY_SC/Resources/Private/Language/locallang_db.xlf:file
+
+plugin.EXTENSION_KEY_CMP {
+    view {
+        # cat=plugin.EXTENSION_KEY_CMP/file/a; type=string; label=LLL:EXT:EXTENSION_KEY_SC/Resources/Private/Language/locallang_db.xlf:file.templateRootPath
+        templateRootPath = EXT:EXTENSION_KEY_SC/Resources/Private/Templates/
+        # cat=plugin.EXTENSION_KEY_CMP/file/b; type=string; label=LLL:EXT:EXTENSION_KEY_SC/Resources/Private/Language/locallang_db.xlf:file.partialRootPath
+        partialRootPath = EXT:EXTENSION_KEY_SC/Resources/Private/Partials/
+        # cat=plugin.EXTENSION_KEY_CMP/file/c; type=string; label=LLL:EXT:EXTENSION_KEY_SC/Resources/Private/Language/locallang_db.xlf:file.layoutRootPath
+        layoutRootPath = EXT:EXTENSION_KEY_SC/Resources/Private/Layouts/
+    }
+
+    settings {
+        # cat=plugin.EXTENSION_KEY_CMP/common/a; type=options[Off=0,On=1]; label=LLL:EXT:EXTENSION_KEY_SC/Resources/Private/Language/locallang_db.xlf:common.enable
+        enable = 0
+    }
+}

@@ -1,0 +1,10 @@
+@add-mixin grid (small, medium, large), (var(--grid-gutter), var(--grid-gutter), var(--grid-gutter)), var(--grid-gutter--half), 6 {
+	box-sizing: border-box;
+	max-width: var(--grid-maxwidth);
+	margin: auto;
+	padding: 0 calc(var(--grid-gutter) / 2);
+
+	@media (--bp-small--max) {
+		padding: 0 calc(var(--grid-gutter--small) / 2);
+	}
+}

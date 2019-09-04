@@ -1,0 +1,40 @@
+lib.contentElement {
+    templateRootPaths.20 = EXT:tw_base/Resources/Private/Templates/
+    templateRootPaths.30 = EXT:EXTENSION_KEY_SC/Resources/Private/Templates/
+    templateRootPaths.99 = EXT:EXTENSION_KEY_SC/Resources/Private/Templates/ContentElements/
+
+    layoutRootPaths.20 = EXT:tw_base/Resources/Private/Layouts/
+    layoutRootPaths.30 = EXT:EXTENSION_KEY_SC/Resources/Private/Layouts/
+    layoutRootPaths.99 = EXT:EXTENSION_KEY_SC/Resources/Private/Layouts/ContentElements/
+
+    partialRootPaths.20 = EXT:tw_base/Resources/Private/Partials/
+    partialRootPaths.30 = EXT:EXTENSION_KEY_SC/Resources/Private/Partials/
+    partialRootPaths.40 = EXT:EXTENSION_KEY_SC/Resources/Public/
+    partialRootPaths.99 = EXT:EXTENSION_KEY_SC/Resources/Private/Partials/ContentElements/
+
+    settings.media {
+        popup.linkParams {
+            ATagParams.dataWrap = class="{$styles.content.textmedia.linkWrap.lightboxCssClass}" rel="{$styles.content.textmedia.linkWrap" data-caption="{field:description}" target="_blank"
+        }
+    }
+}
+
+lib.content {
+    render = CONTENT
+    render {
+        table = tt_content
+        select {
+            orderBy = sorting
+            where.cObject = COA
+            where.cObject {
+                10 = TEXT
+                10 {
+                    field = colPos
+                    intval = 1
+                    ifEmpty = 0
+                    noTrimWrap = | AND colPos=||
+                }
+            }
+        }
+    }
+}

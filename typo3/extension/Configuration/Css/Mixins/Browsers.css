@@ -1,0 +1,47 @@
+@define-mixin oldIEOnly $selector {
+	_:-ms-lang(x), $selector {
+		@mixin-content;
+	}
+}
+
+@define-mixin oldOperaOnly $selector {
+	_:-o-prefocus, $selector {
+		@mixin-content;
+	}
+}
+
+@define-mixin flex-basis $basis {
+	flex-basis: $basis;
+	/* Hack for IE 11 who ignores the padding for width calculation */
+	max-width: $basis;
+}
+
+@define-mixin placeholder $color {
+    &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+        color: $color;
+        @mixin-content ;
+    }
+
+    &::-moz-placeholder { /* Firefox 19+ */
+        color: $color;
+        opacity: 1;
+        @mixin-content ;
+    }
+
+    &:-ms-input-placeholder { /* IE 10+ */
+        color: $color;
+        @mixin-content ;
+    }
+
+    &:-moz-placeholder { /* Firefox 18- */
+        color: $color;
+        opacity: 1;
+        @mixin-content ;
+    }
+}
+
+@define-mixin avoid-column-break {
+    -webkit-column-break-inside: avoid; /* Chrome, Safari, Opera */
+    page-break-inside: avoid; /* Firefox */
+    break-inside: avoid; /* IE 10+ */
+}

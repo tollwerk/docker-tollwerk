@@ -1,0 +1,11 @@
+:root {
+	/* Base colors */
+	--color-black: var(--color-grey--90);
+	--color-white: var(--color-grey--0);
+}
+
+:root {
+	/* Link colors */
+	--color-link--default: var(--color-black);
+	--color-link--hocus: var(--color-black);
+}

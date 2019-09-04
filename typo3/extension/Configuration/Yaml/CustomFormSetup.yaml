@@ -1,0 +1,54 @@
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:
+          formElementsDefinition:
+            Form:
+              renderingOptions:
+                templateRootPaths:
+                  20: 'EXT:EXTENSION_KEY_SC/Resources/Private/Templates/'
+                  30: 'EXT:EXTENSION_KEY_SC/Resources/Private/Templates/Extensions/Form/'
+                partialRootPaths:
+                  20: 'EXT:EXTENSION_KEY_SC/Resources/Private/Partials/Elements/Form/'
+                  30: 'EXT:EXTENSION_KEY_SC/Resources/Public/'
+                elementClassAttribute: 'Form'
+            Search:
+              __inheritances:
+                10: 'TYPO3.CMS.Form.mixins.formElementMixins.TextMixin'
+              properties:
+                elementClassAttribute: 'FormSearch'
+            Tel:
+              __inheritances:
+                10: 'TYPO3.CMS.Form.mixins.formElementMixins.TextMixin'
+              properties:
+                elementClassAttribute: 'FormTel'
+            Email:
+              __inheritances:
+                10: 'TYPO3.CMS.Form.mixins.formElementMixins.TextMixin'
+              properties:
+                elementClassAttribute: 'FormEmail'
+            Checkbox:
+              properties:
+                containerClassAttribute: 'FormCheckbox'
+                elementClassAttribute: ''
+            SingleSelect:
+              properties:
+                elementClassAttribute: 'FormSelect'
+            Text:
+              properties:
+                elementClassAttribute: 'FormText'
+            Textarea:
+              properties:
+                elementClassAttribute: ''
+            Password:
+              properties:
+                elementClassAttribute: 'FormPassword'
+            RadioButton:
+              properties:
+                containerClassAttribute: 'FormRadioButton'
+                elementClassAttribute: ''
+      persistenceManager:
+        allowSaveToExtensionPaths: true
+        allowedExtensionPaths:
+          10: EXT:EXTENSION_KEY_SC/Resources/Private/Forms/

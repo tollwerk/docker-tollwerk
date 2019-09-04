@@ -1,0 +1,42 @@
+# LAYOUTS, TEMPLATES & VARIABLES
+page = PAGE
+page {
+    10 = FLUIDTEMPLATE
+    10 {
+        layoutRootPaths {
+            10 = EXT:EXTENSION_KEY_SC/Resources/Private/Layouts/Page/
+        }
+
+        templateRootPaths {
+            10 = EXT:EXTENSION_KEY_SC/Resources/Private/Templates/Page/
+        }
+
+        partialRootPaths {
+            10 = EXT:EXTENSION_KEY_SC/Resources/Private/Partials/
+            20 = EXT:EXTENSION_KEY_SC/Resources/Public/
+        }
+
+        settings < plugin.tx_twtollwerk.settings
+
+        # Smart, dynamic mapping of backend layouts without the need to configure new ones individually in typoscript,
+        # see https://usetypo3.com/backend-layouts.html and https://www.youtube.com/watch?time_continue=1&v=RoHaeo4fq34
+        templateName = TEXT
+        templateName {
+            cObject = TEXT
+            cObject {
+                data = pagelayout
+                required = 1
+                case = uppercamelcase
+                split {
+                    token = pagets__
+                    cObjNum = 1
+                    1.current = 1
+                }
+            }
+
+            ifEmpty = Blank
+        }
+
+        extbase.controllerExtensionName = EXTENSION_KEY_UCC
+    }
+}

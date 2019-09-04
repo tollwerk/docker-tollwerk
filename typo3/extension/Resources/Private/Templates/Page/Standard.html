@@ -1,0 +1,27 @@
+<f:comment><!--
+
+    Standard page template
+
+    @param array data           Page record
+    @param string current       Current backend layout ("standard")
+
+--></f:comment>
+<html xmlns:f="https://xsd.helhum.io/ns/typo3/cms-fluid/master/ViewHelpers" data-namespace-typo3-fluid="true">
+    <f:layout name="Standard"/>
+
+    <f:comment><!--
+
+        Render the page content
+
+        @param array data           Page record
+        @param string current       Current backend layout ("standard")
+
+    --></f:comment>
+    <f:section name="Main">
+        <f:format.raw>
+            <f:cObject typoscriptObjectPath="lib.content.render" data="{colPos: 0}"/>
+        </f:format.raw>
+    </f:section>
+</html>
+
+

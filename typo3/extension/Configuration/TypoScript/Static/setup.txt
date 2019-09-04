@@ -1,0 +1,26 @@
+plugin.EXTENSION_KEY_CMP = USER
+plugin.EXTENSION_KEY_CMP {
+    view {
+        templateRootPath = {$plugin.EXTENSION_KEY_CMP.view.templateRootPath}
+        partialRootPath = {$plugin.EXTENSION_KEY_CMP.view.partialRootPath}
+        layoutRootPath = {$plugin.EXTENSION_KEY_CMP.view.layoutRootPath}
+        templateRootPaths {
+            10 = EXT:EXTENSION_KEY_SC/Resources/Private/Templates/
+            20 = {$plugin.EXTENSION_KEY_CMP.view.templateRootPath}
+        }
+
+        partialRootPaths {
+            10 = EXT:EXTENSION_KEY_SC/Resources/Private/Partials/
+            20 = {$plugin.EXTENSION_KEY_CMP.view.partialRootPath}
+        }
+
+        layoutRootPaths {
+            10 = EXT:EXTENSION_KEY_SC/Resources/Private/Layouts/
+            20 = {$plugin.EXTENSION_KEY_CMP.view.layoutRootPath}
+        }
+    }
+
+    settings {
+        enable = {$plugin.EXTENSION_KEY_CMP.settings.enable}
+    }
+}

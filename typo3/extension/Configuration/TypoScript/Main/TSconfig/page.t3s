@@ -1,0 +1,24 @@
+<INCLUDE_TYPOSCRIPT: source="DIR:./BackendLayouts" extensions="t3s">
+
+# NEEDED IN CASE OF MORE THAN 1 LANGUAGE
+mod.SHARED {
+    defaultLanguageFlag = gb
+    defaultLanguageLabel = English
+}
+
+TCEMAIN.table.tt_content {
+    disablePrependAtCopy = 1
+}
+
+TCEFORM.sys_file_reference.crop.config.cropVariants {
+#    square {
+#        title = Square
+#        selectedRatio = 1:1
+#        allowedAspectRatios {
+#            1:1 {
+#                title = 1:1
+#                value = 1
+#            }
+#        }
+#    }
+}

@@ -1,0 +1,21 @@
+@critical {
+	.Heading {
+		line-height: var(--line-height--headings);
+		margin: var(--heading-spacing) 0;
+
+		.webfonts & {
+			font-family: var(--font-family--display);
+		}
+	}
+
+	/* Heading levels */
+	@each $size in xx-large, x-large, large, medium, small, x-small {
+		.Heading--$(size) {
+			font-size: var(--heading-size--$(size));
+		}
+	}
+
+	.Heading--hidden {
+		@add-mixin hide-element;
+	}
+}

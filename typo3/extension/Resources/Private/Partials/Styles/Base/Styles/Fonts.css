@@ -1,0 +1,49 @@
+@critical {
+    /* Subsetted & inlined font (using postcss-assets) */
+    /*
+	@font-face {
+		font-family: 'Subsetted';
+		src: inline('custom-font-subsetted.woff') format('woff');
+		font-weight: 400;
+		font-style: normal;
+		font-display: swap;
+		unicode-range: U+A, U+20-3B, U+3F-7E, U+A0, U+A2-A3, U+A5, U+A8-A9, U+AB, U+AD-AE, U+B4, U+B8, U+BB, U+C4, U+D6, U+DC, U+DF, U+E4, U+F6, U+FC, U+2C6, U+2DA, U+2DC, U+2000-200A, U+2010-2014, U+2018-201A, U+201C-201E, U+2026, U+202F, U+2039-203A, U+205F, U+20AC, U+2122, U+25FC;
+	}
+    */
+
+    /* Regular font */
+    /*
+	@font-face {
+		font-family: 'Standard';
+		src: url('/typo3conf/ext/EXTENSION_KEY_SC/Resources/Public/Fonts/custom-font.woff2') format('woff2'),
+		url('/typo3conf/ext/EXTENSION_KEY_SC/Resources/Public/Fonts/custom-font.woff') format('woff');
+		font-weight: 300;
+		font-style: normal;
+		font-display: swap;
+	}
+	*/
+}
+
+.fs--micro {
+    font-size: var(--font-size--micro);
+}
+
+.fs--uno {
+    font-size: var(--font-size--uno);
+}
+
+.fs--kilo {
+    font-size: var(--font-size--kilo);
+}
+
+.fs--mega {
+    font-size: var(--font-size--mega);
+}
+
+.fs--giga {
+    font-size: var(--font-size--giga);
+}
+
+.fs--tera {
+    font-size: var(--font-size--tera);
+}

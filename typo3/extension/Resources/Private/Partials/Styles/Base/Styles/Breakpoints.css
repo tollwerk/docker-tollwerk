@@ -1,0 +1,25 @@
+@critical {
+	html {
+		position: relative;
+		z-index: 0;
+
+		@media (--bp-xsmall--min) {
+			z-index: 100;
+		}
+		@media (--bp-small--min) {
+			z-index: 200;
+		}
+		@media (--bp-medium--min) {
+			z-index: 300;
+		}
+		@media (--bp-large--min) {
+			z-index: 400;
+		}
+		@media (--bp-xlarge--min) {
+			z-index: 500;
+		}
+		@media (--bp-xxlarge--min) {
+			z-index: 600;
+		}
+	}
+}

@@ -1,0 +1,43 @@
+:root {
+    /* Font family */
+    --font-family: 'Standard';
+    --font-family--subset: 'Subsetted';
+    --font-family--display: 'Display';
+
+    --font-typographic-scale: 1.4;
+
+    /* Font sizes */
+    --font-size--micro: calc(var(--font-size--uno) / var(--font-typographic-scale));
+    --font-size--uno: 1.24rem;
+    --font-size--kilo: calc(var(--font-size--uno) * var(--font-typographic-scale));
+    --font-size--mega: calc(var(--font-size--kilo) * var(--font-typographic-scale));
+    --font-size--giga: calc(var(--font-size--mega) * var(--font-typographic-scale));
+    --font-size--tera: calc(var(--font-size--giga) * var(--font-typographic-scale));
+    --font-size--peta: calc(var(--font-size--tera) * var(--font-typographic-scale));
+
+    /* Heading sizes */
+    --heading-size--xx-large: var(--font-size--tera);
+    --heading-size--x-large: var(--font-size--giga);
+    --heading-size--large: var(--font-size--mega);
+    --heading-size--medium: var(--font-size--kilo);
+    --heading-size--small: var(--font-size--uno);
+    --heading-size--x-small: var(--font-size--uno);
+
+    /* Font weights */
+    --font-weight: 400;
+    --font-weight--bold: 700;
+
+    /* Font styles */
+    --font-style--normal: normal;
+    --font-style--italic: italic;
+
+    /* Line Heights */
+    --line-height: 1.5;
+    --line-height--small: 1.22;
+    --line-height--capital: 1.1;
+    --line-height--headings: 1.08333;
+
+    /* Character widths */
+    --character-width--space: .25em;
+    --character-width--indent: -.25em;
+}

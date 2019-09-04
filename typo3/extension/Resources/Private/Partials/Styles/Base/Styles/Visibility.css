@@ -1,0 +1,9 @@
+@critical {
+    .hide-element {
+        @add-mixin hide-element;
+    }
+
+    .hide-content {
+        @add-mixin hide-content;
+    }
+}

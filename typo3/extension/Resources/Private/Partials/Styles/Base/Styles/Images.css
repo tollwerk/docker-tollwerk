@@ -1,0 +1,9 @@
+@critical {
+	.no-js .lazyload {
+		display: none;
+	}
+
+	img {
+		vertical-align: middle;
+	}
+}

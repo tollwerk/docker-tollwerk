@@ -1,0 +1,41 @@
+<f:comment><!--
+
+    Custom form implementation
+
+    @param FormRuntime form         Form
+
+--></f:comment>
+<html xmlns:f="https://xsd.helhum.io/ns/typo3/cms-fluid/master/ViewHelpers"
+      xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Tollwerk/TwAntibot/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+    <a:antibot.valid form="{form}">
+        <f:then>
+            <formvh:renderRenderable renderable="{form}">
+                <formvh:form
+                        pageUid="{f:if(condition: form.renderingOptions.pageUid, then: form.renderingOptions.pageUid, else: 0)}"
+                        noCacheHash="1"
+                        object="{form}"
+                        action="{form.renderingOptions.controllerAction}"
+                        actionUri="{form.renderingOptions.actionUri}"
+                        method="{form.renderingOptions.httpMethod}"
+                        id="{form.identifier}"
+                        class="{form.renderingOptions.elementClassAttribute}"
+                        section="{form.renderingOptions.section}"
+                        enctype="{form.renderingOptions.httpEnctype}"
+                        addQueryString="{form.renderingOptions.addQueryString}"
+                        argumentsToBeExcludedFromQueryString="{form.renderingOptions.argumentsToBeExcludedFromQueryString}"
+                        additionalParams="{form.renderingOptions.additionalParams}"
+                        additionalAttributes="{form.renderingOptions.additionalAttributes}"
+                >
+                    <f:render partial="{form.currentPage.templateName}"
+                              arguments="{form: form, page: form.currentPage}"/>
+                    <f:render partial="Form/Navigation" arguments="{form: form}"/>
+                </formvh:form>
+            </formvh:renderRenderable>
+        </f:then>
+        <f:else>
+            ERROR
+        </f:else>
+    </a:antibot.valid>
+</html>

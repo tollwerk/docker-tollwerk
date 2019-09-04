@@ -1,0 +1,26 @@
+:root {
+    --breakpoint--xsmall: 25rem;
+    --breakpoint--small: 32rem;
+    --breakpoint--medium: 42rem;
+    --breakpoint--large: 52rem;
+    --breakpoint--xlarge: 58rem;
+    --breakpoint--xxlarge: 64rem;
+    --breakpoint--xxxlarge: 75rem;
+}
+
+@custom-media --bp-none--min all;
+@custom-media --bp-xsmall--min (min-width: 25.0625rem);
+@custom-media --bp-small--min (min-width: 32.0625rem);
+@custom-media --bp-medium--min (min-width: 42.0625rem);
+@custom-media --bp-large--min (min-width: 52.0625rem);
+@custom-media --bp-xlarge--min (min-width: 58.0625rem);
+@custom-media --bp-xxlarge--min (min-width: 64.0625rem);
+@custom-media --bp-xxxlarge--min (min-width: 75.0625rem);
+
+@custom-media --bp-xsmall--max (max-width: 25rem);
+@custom-media --bp-small--max (max-width: 32rem);
+@custom-media --bp-medium--max (max-width: 42rem);
+@custom-media --bp-large--max (max-width: 52rem);
+@custom-media --bp-xlarge--max (max-width: 58rem);
+@custom-media --bp-xxlarge--max (max-width: 64rem);
+@custom-media --bp-xxxlarge--max (max-width: 75rem);

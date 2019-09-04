@@ -1,0 +1,50 @@
+{
+    "name": "tollwerk/EXTENSION_KEY_DASHED",
+    "type": "typo3-cms-extension",
+    "description": "Custom features for PROJECT_NAME",
+    "homepage": "PROJECT_URL",
+    "license": "GPL-2.0+",
+    "version": "1.0",
+    "keywords": [
+        "tollwerk-extension",
+        "tollwerk-provider-extension"
+    ],
+    "require": {
+        "typo3/cms": "TYPO3_VERSION_REQ",
+        "tollwerk/tw-base": "@dev"
+    },
+    "require-dev": {
+        "tollwerk/tw-componentlibrary": "@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tollwerk\\EXTENSION_KEY_UCC\\": "Classes/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tollwerk\\EXTENSION_KEY_UCC\\Tests\\": "Tests/",
+            "Tollwerk\\EXTENSION_KEY_UCC\\Component\\": "Components/",
+            "TYPO3\\CMS\\Core\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/core/Tests/"
+        }
+    },
+    "replace": {
+        "EXTENSION_KEY_SC": "self.version",
+        "typo3-ter/EXTENSION_KEY_SC": "self.version"
+    },
+    "authors": [
+        {
+            "name": "AUTHOR_NAME",
+            "email": "AUTHOR_EMAIL"
+        }
+    ],
+    "extra": {
+        "branch-alias": {
+            "dev-master": "master"
+        },
+        "typo3/cms": {
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "web-dir": ".Build/Web"
+        }
+    }
+}

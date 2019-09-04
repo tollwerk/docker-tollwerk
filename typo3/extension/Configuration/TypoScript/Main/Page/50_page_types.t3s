@@ -1,0 +1,9 @@
+# Render an unstyled version of the page
+unstyledPage < page
+unstyledPage {
+    typeNum = 2800
+    headTag >
+    headTag = <head>
+    headerData.100 >
+    headerData.200 >
+}

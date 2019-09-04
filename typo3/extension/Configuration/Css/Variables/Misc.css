@@ -1,0 +1,6 @@
+:root {
+	--z-index--max: 4;
+	--z-index--top: 3;
+	--z-index--medium: 2;
+	--z-index--elevated: 1;
+}

@@ -1,0 +1,33 @@
+# Responsive image format specifications
+lib.contentElement.settings.media.breakpoints {
+    configs {
+        wide {
+            cropVariant = wide
+            media = (min-width: 1024px)
+            srcset = 1200
+        }
+
+        medium {
+            cropVariant = medium
+            media = (min-width: 672px) and (max-width: 1023px)
+            srcset = 1024
+        }
+
+        square {
+            cropVariant = square
+            media = (min-width: 512px) and (max-width: 671px)
+            srcset = 672
+        }
+
+        narrow {
+            cropVariant = narrow
+            media = (max-width: 511px)
+            srcset = 512
+            sizes = 100vw
+        }
+    }
+
+    presets {
+        billboard = wide, medium, square, narrow
+    }
+}

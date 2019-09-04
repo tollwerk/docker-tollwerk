@@ -1,0 +1,24 @@
+<f:comment><!--
+
+    Code snippet demo
+
+--></f:comment>
+<html xmlns:f="https://xsd.helhum.io/ns/typo3/cms-fluid/master/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+    <main>
+        <!-- Code -->
+        <section class="space-bottom" id="code">
+            <p><strong>Keyboard input:</strong> <kbd>Cmd</kbd></p>
+            <p><strong>Inline code:</strong> <code>&lt;div&gt;code&lt;/div&gt;</code></p>
+            <p><strong>Sample output:</strong> <samp>This is sample output from a computer program.</samp></p>
+
+            <f:render partial="Elements/Code/Default" arguments="{language: 'javascript', code: 'function exportPaths() {
+    const map = {};
+    for (let item of fractal.components.flatten()) {
+        map[`@$`] = path.relative(process.cwd(), item.viewPath);
+    }
+    fs.writeFileSync(\'components-map.json\', JSON.stringify(map, null, 2), \'utf8\');
+}'}"/>
+        </section>
+    </main>
+</html>

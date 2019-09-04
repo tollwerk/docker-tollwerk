@@ -1,0 +1,43 @@
+<f:comment><!--
+
+    @param array colorGroups      Color groups
+
+--></f:comment>
+<html xmlns:f="https://xsd.helhum.io/ns/typo3/cms-fluid/master/ViewHelpers" data-namespace-typo3-fluid="true">
+    <f:for each="{colorGroups}" as="colors" key="group">
+        <h2 class="Heading Heading--secondary">{group}</h2>
+        <ul class="color-swatches">
+            <f:for each="{colors}" as="value" key="var">
+                <li>
+                    <h3 class="var">{var}</h3>
+                    <div style="color:{value.lbl};background-color:{value.hex}">
+                        <dl>
+                            <dt>Hex</dt>
+                            <dd class="hex">{value.hex}</dd>
+                            <dt>RGB</dt>
+                            <dd class="rgb">{value.rgb.r}/{value.rgb.g}/{value.rgb.b}</dd>
+                            <dt class="ctw" style="color:{value.hex}">CTW</dt>
+                            <dd class="ctw">
+                                <f:if condition="{value.ctw} < 10"> </f:if>
+                                {value.ctw}:1
+                                <f:if condition="{value.ctw} >= 4.5">
+                                    <f:then>✓</f:then>
+                                    <f:else>✕</f:else>
+                                </f:if>
+                            </dd>
+                            <dt class="ctb" style="color:{value.hex}">CTB</dt>
+                            <dd class="ctb">
+                                <f:if condition="{value.ctb} < 10"> </f:if>
+                                {value.ctb}:1
+                                <f:if condition="{value.ctb} >= 4.5">
+                                    <f:then>✓</f:then>
+                                    <f:else>✕</f:else>
+                                </f:if>
+                            </dd>
+                        </dl>
+                    </div>
+                </li>
+            </f:for>
+        </ul>
+    </f:for>
+</html>
