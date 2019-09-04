@@ -14,6 +14,7 @@ const providerExt = process.env.PROJECT_EXTENSION || `tw_${projectKey}`;
 const dist = `./public/fileadmin/${projectKey}/`;
 const extDist = './public/typo3conf/ext/';
 const providerExtDist = `${extDist}${providerExt}/`;
+const assetDist = './public/typo3temp/assets/';
 const watchAll = [];
 const defaultTasks = [{
     task: 'watch',
@@ -24,7 +25,8 @@ const params = {
     providerExt,
     dist,
     extDist,
-    providerExtDist
+    providerExtDist,
+    assetDist
 };
 
 // Require modules
@@ -37,7 +39,7 @@ glob.sync('**/*.js', { cwd: './gulp-tasks' })
         const taskName = r.replace('/', ':');
         const { task, watch, dtp } = require(`./gulp-tasks/${r}`);
         task && gulp.task(taskName, task(params));
-        watch && watchAll.push(...watch(params));
+        watch && watchAll.push(watch);
         dtp && defaultTasks.push({
             task: taskName,
             priority: dtp
@@ -45,7 +47,7 @@ glob.sync('**/*.js', { cwd: './gulp-tasks' })
     });
 
 // Define the watch task
-gulp.task('watch', () => watchAll.forEach(args => gulp.watch(args[0], gulp.series.apply(null, args[1]))));
+gulp.task('watch', () => watchAll.forEach(watch => watch(params)));
 
 // Define the default task
 gulp.task('default', gulp.series(...defaultTasks.sort((a, b) => a.priority - b.priority)

@@ -1,4 +1,4 @@
-<INCLUDE_TYPOSCRIPT: source="DIR:./BackendLayouts" extensions="t3s">
+<INCLUDE_TYPOSCRIPT: source="DIR:./BackendLayouts" extensions="tsconfig">
 
 # NEEDED IN CASE OF MORE THAN 1 LANGUAGE
 mod.SHARED {

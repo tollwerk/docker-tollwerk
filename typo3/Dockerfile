@@ -8,8 +8,9 @@ LABEL maintainer="tollwerk GmbH <info@tollwerk.de>"
 COPY typo3/scripts /scripts
 COPY .shared/config/php.ini /scripts/
 
-# Copy fixture files
+# Copy fixture & extension template files
 COPY typo3/fixture /fixture
+COPY typo3/extension /extension
 
 # Configure Apache for TYPO3
 RUN chmod 0755 /scripts/* \
