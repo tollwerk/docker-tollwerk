@@ -23,6 +23,7 @@ COPY .shared/scripts/install-php.sh /scripts/
 
 # Install PHP and additional software
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories \
+    && mkdir /www \
     && chmod 0755 /scripts/* \
     && apk --update --no-cache add \
         bash \
