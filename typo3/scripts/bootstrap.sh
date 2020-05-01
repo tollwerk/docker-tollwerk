@@ -19,7 +19,7 @@ makeDirectory() {
   return 0
 }
 
-# Substitute makers in a file
+# Substitute markers in a file
 substituteMarkers() {
   sed -i'' \
     -e "s|YEAR|$(date +%Y)|g" \
@@ -102,8 +102,6 @@ installRecursive "$FIXTURE_DIR" "$PROJECT_DIR" 0
 
 # Recursively install the provider extension templates (with marker substitution)
 installRecursive "$EXTENSION_SOURCE_DIR" "$EXTENSION_TARGET_DIR" 1
-
-#fluidtypo3/flux
 
 #env
 

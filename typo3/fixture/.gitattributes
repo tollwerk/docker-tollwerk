@@ -4,10 +4,12 @@
 * text eol=lf
 
 # (binary is a macro for -text -diff)
+*.br binary
 *.png binary
 *.jpg binary
 *.jpeg binary
 *.gif binary
+*.gz binary
 *.ico binary
 *.mov binary
 *.mp4 binary

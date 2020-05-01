@@ -1,4 +1,4 @@
-# docker-typo3
+# docker-tollwerk
 An experimental set of docker images ready for tollwerk TYPO3 projects
 
 * [tollwerk/base](base/README.md): Apache HTTP + PHP 7.3 (CLI) base image for web projects
