@@ -1,5 +1,6 @@
 {
     "name": "tollwerk/PROJECT_KEY",
+    "description": "PROJECT_DESCRIPTION",
     "homepage": "PROJECT_URL",
     "license": "GPL-2.0+",
     "version": "1.0",

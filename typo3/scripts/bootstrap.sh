@@ -7,6 +7,7 @@ EXTENSION_SOURCE_DIR=/extension
 EXTENSION_TARGET_DIR="$PUBLIC_DIR/typo3conf/ext/$TYPO3_PROJECT_EXTENSION"
 EXTENSION_SPLIT=(${TYPO3_PROJECT_EXTENSION//_/ })
 EXTENSION_KEY_UCC=$(printf %s "${EXTENSION_SPLIT[@]^}")
+FRACTAL_MODULES=
 
 # Recursively create a directory (if it doesn't exist yet)
 makeDirectory() {
@@ -31,11 +32,13 @@ substituteMarkers() {
         -e "s|AUTHOR_FULL|$AUTHOR_NAME <$AUTHOR_EMAIL>|g" \
         -e "s|PROJECT_KEY|$PROJECT_KEY|g" \
         -e "s|PROJECT_NAME|$PROJECT_NAME|g" \
+        -e "s|PROJECT_DESCRIPTION|$PROJECT_DESCRIPTION|g" \
         -e "s|PROJECT_URL|$PROJECT_URL|g" \
         -e "s|EXTENSION_KEY_SC|$TYPO3_PROJECT_EXTENSION|g" \
         -e "s|EXTENSION_KEY_DASHED|${TYPO3_PROJECT_EXTENSION/_/-}|g" \
         -e "s|EXTENSION_KEY_CMP|tx_${TYPO3_PROJECT_EXTENSION/_/}|g" \
         -e "s|EXTENSION_KEY_UCC|$EXTENSION_KEY_UCC|g" \
+        -e "s|FRACTAL_MODULES|$FRACTAL_MODULES|g" \
         $1
 }
 
@@ -109,20 +112,35 @@ fi
 TYPO3_VERSION_TAG=$(/www/vendor/bin/typo3 -V | cut -d ' ' -f 3)
 
 # Recursively install the toolchain resources
-if [[ ! -f "/www/package.json" ]]; then
+if [[ ! -e "/www/package.json" ]]; then
     cd "/www" || exit 1
+
+    # Install fixture
     installRecursive "$FIXTURE_DIR" "$PROJECT_DIR" 0 || exit 5
+
+    # Define Fractal Node modules
+    if [[ "${FRACTAL}" == "1" ]]; then
+        FRACTAL_MODULES="@frctl/fractal fancy-log fractal-typo3"
+
+        # Add Fractal Tenon plugin
+        if [[ "${FRACTAL_TENON_API_KEY}" != "" ]] && [[ "${FRACTAL_TENON_PUBLIC_URL}" != "" ]]; then
+            FRACTAL_MODULES="$FRACTAL_MODULES fractal-tenon"
+        fi
+    fi
+
+    # Substitute markers in package.json
+    substituteMarkers "/www/package.json" || exit 6
 fi
 
 # Recursively install the provider extension templates (with marker substitution)
 if [[ "${TYPO3_PROJECT_EXTENSION}" != "" ]] && [[ ! -e "$EXTENSION_TARGET_DIR" ]]; then
     cd "/www" || exit 1
-    installRecursive "$EXTENSION_SOURCE_DIR" "$EXTENSION_TARGET_DIR" 1 || exit 4
+    installRecursive "$EXTENSION_SOURCE_DIR" "$EXTENSION_TARGET_DIR" 1 || exit 7
     cd "/www" || exit 1
     php /scripts/configure-autoload-psr4.php --add "Tollwerk/$EXTENSION_KEY_UCC" "Classes"
     php /scripts/configure-autoload-psr4.php --add --dev "Tollwerk/$EXTENSION_KEY_UCC/Tests" "Tests"
     php /scripts/configure-autoload-psr4.php --add --dev "Tollwerk/$EXTENSION_KEY_UCC/Component" "Components"
-    composer dump-autoload -o || exit 6
+    composer dump-autoload -o || exit 8
     php vendor/bin/typo3 extension:activate "${TYPO3_PROJECT_EXTENSION}"
 fi
 
