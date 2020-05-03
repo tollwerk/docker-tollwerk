@@ -1,0 +1,12 @@
+{
+    "name": "tollwerk/PROJECT_KEY",
+    "homepage": "PROJECT_URL",
+    "license": "GPL-2.0+",
+    "version": "1.0",
+    "authors": [
+        {
+            "name": "AUTHOR_NAME",
+            "email": "AUTHOR_EMAIL"
+        }
+    ]
+}

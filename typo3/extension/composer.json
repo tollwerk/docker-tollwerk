@@ -29,7 +29,7 @@
         }
     },
     "replace": {
-        "EXTENSION_KEY_SC": "self.version",
+        "tollwerk/EXTENSION_KEY_SC": "self.version",
         "typo3-ter/EXTENSION_KEY_SC": "self.version"
     },
     "authors": [

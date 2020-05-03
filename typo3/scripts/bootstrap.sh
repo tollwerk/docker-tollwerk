@@ -6,8 +6,9 @@ PUBLIC_DIR=$PROJECT_DIR/public
 EXTENSION_SOURCE_DIR=/extension
 EXTENSION_TARGET_DIR="$PUBLIC_DIR/typo3conf/ext/$TYPO3_PROJECT_EXTENSION"
 EXTENSION_SPLIT=(${TYPO3_PROJECT_EXTENSION//_/ })
+EXTENSION_KEY_UCC=$(printf %s "${EXTENSION_SPLIT[@]^}")
 
-# Recursively create a directory
+# Recursively create a directory (if it doesn't exist yet)
 makeDirectory() {
     if [[ ! -e "$1" ]]; then
         mkdir -p "$1"
@@ -28,12 +29,13 @@ substituteMarkers() {
         -e "s|AUTHOR_NAME|$AUTHOR_NAME|g" \
         -e "s|AUTHOR_EMAIL|$AUTHOR_EMAIL|g" \
         -e "s|AUTHOR_FULL|$AUTHOR_NAME <$AUTHOR_EMAIL>|g" \
+        -e "s|PROJECT_KEY|$PROJECT_KEY|g" \
         -e "s|PROJECT_NAME|$PROJECT_NAME|g" \
         -e "s|PROJECT_URL|$PROJECT_URL|g" \
         -e "s|EXTENSION_KEY_SC|$TYPO3_PROJECT_EXTENSION|g" \
         -e "s|EXTENSION_KEY_DASHED|${TYPO3_PROJECT_EXTENSION/_/-}|g" \
         -e "s|EXTENSION_KEY_CMP|tx_${TYPO3_PROJECT_EXTENSION/_/}|g" \
-        -e "s|EXTENSION_KEY_UCC|$(printf %s "${EXTENSION_SPLIT[@]^}")|g" \
+        -e "s|EXTENSION_KEY_UCC|$EXTENSION_KEY_UCC|g" \
         $1
 }
 
@@ -68,6 +70,8 @@ makeDirectory "$PROJECT_DIR"
 # Install TYPO3
 if [[ ! -f "/www/composer.json" ]]; then
     cd "/www" || exit 1
+    cp "/scripts/composer.json" "/www/composer.json" || exit 2
+    substituteMarkers "/www/composer.json" || exit 3
     composer require typo3/minimal "${TYPO3_VERSION}" \
         typo3/cms-belog \
         typo3/cms-beuser \
@@ -86,10 +90,9 @@ if [[ ! -f "/www/composer.json" ]]; then
         typo3/cms-lang \
         helhum/typo3-console \
         fluidtypo3/vhs \
-        tollwerk/tw-base ||
-        exit 2
+        tollwerk/tw-base || exit 4
 
-    # Install the component library
+    # Install the component library (if requested)
     if [[ "${FRACTAL}" == "1" ]]; then
         composer require tollwerk/tw-componentlibrary
     fi
@@ -102,15 +105,25 @@ if [[ ! -f "/www/public/typo3conf/PackageStates.php" ]]; then
         --web-server-config=apache --site-setup-type=site
 fi
 
-# Determine the current TYPO3 version
+# Determine the installed TYPO3 version
 TYPO3_VERSION_TAG=$(/www/vendor/bin/typo3 -V | cut -d ' ' -f 3)
 
 # Recursively install the toolchain resources
-installRecursive "$FIXTURE_DIR" "$PROJECT_DIR" 0
+if [[ ! -f "/www/package.json" ]]; then
+    cd "/www" || exit 1
+    installRecursive "$FIXTURE_DIR" "$PROJECT_DIR" 0 || exit 5
+fi
 
 # Recursively install the provider extension templates (with marker substitution)
-if [[ "${TYPO3_PROJECT_EXTENSION}" != "" ]]; then
-    installRecursive "$EXTENSION_SOURCE_DIR" "$EXTENSION_TARGET_DIR" 1
+if [[ "${TYPO3_PROJECT_EXTENSION}" != "" ]] && [[ ! -e "$EXTENSION_TARGET_DIR" ]]; then
+    cd "/www" || exit 1
+    installRecursive "$EXTENSION_SOURCE_DIR" "$EXTENSION_TARGET_DIR" 1 || exit 4
+    cd "/www" || exit 1
+    php /scripts/configure-autoload-psr4.php --add "Tollwerk/$EXTENSION_KEY_UCC" "Classes"
+    php /scripts/configure-autoload-psr4.php --add --dev "Tollwerk/$EXTENSION_KEY_UCC/Tests" "Tests"
+    php /scripts/configure-autoload-psr4.php --add --dev "Tollwerk/$EXTENSION_KEY_UCC/Component" "Components"
+    composer dump-autoload -o || exit 6
+    php vendor/bin/typo3 extension:activate "${TYPO3_PROJECT_EXTENSION}"
 fi
 
 exec "$@"
