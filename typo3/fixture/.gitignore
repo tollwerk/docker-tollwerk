@@ -1,5 +1,6 @@
 *
 !/.editorconfig
+!/.env
 !/.gitattributes
 !/.gitignore
 !/.gitmodules
@@ -7,8 +8,13 @@
 !/composer.lock
 !/fractal.js
 !/package.json
+!/package-lock.json
 !/gulpfile.js
 
+!/config
+!/config/**
+!/gulp-tasks
+!/gulp-tasks/**
 !/public
 !/public/.htaccess
 !/public/robots.txt
@@ -20,5 +26,5 @@
 !/public/typo3conf/PackageStates.php
 
 /public/typo3conf/ext/*
-!/public/typo3conf/ext/tw_project
-!/public/typo3conf/ext/tw_project/**
+!/public/typo3conf/ext/EXTENSION_KEY_SC
+!/public/typo3conf/ext/EXTENSION_KEY_SC/**

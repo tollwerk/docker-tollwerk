@@ -128,7 +128,8 @@ if [[ ! -e "/www/package.json" ]]; then
         fi
     fi
 
-    # Substitute markers in package.json
+    # Substitute markers in particular files
+    substituteMarkers "/www/.gitignore" || exit 6
     substituteMarkers "/www/package.json" || exit 6
 fi
 
