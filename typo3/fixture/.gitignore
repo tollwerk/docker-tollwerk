@@ -2,6 +2,8 @@
 !/.editorconfig
 !/.env
 !/.gitattributes
+!/.githooks
+!/.githooks/**
 !/.gitignore
 !/.gitmodules
 !/composer.json

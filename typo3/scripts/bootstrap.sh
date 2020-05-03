@@ -131,6 +131,10 @@ if [[ ! -e "/www/package.json" ]]; then
     # Substitute markers in particular files
     substituteMarkers "/www/.gitignore" || exit 6
     substituteMarkers "/www/package.json" || exit 6
+
+    # Install Git hooks
+    cd "/www" || exit 1
+    git config --local core.hooksPath .githooks/
 fi
 
 # Recursively install the provider extension templates (with marker substitution)
