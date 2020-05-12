@@ -15,6 +15,7 @@ COPY .shared/scripts/install-php.sh /scripts/
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories \
     && apk --update --no-cache add \
         git \
+        mysql-client \
     && chmod 0755 /scripts/* \
     && /scripts/install-php.sh \
     && rm -rf /var/cache/apk/* /scripts
