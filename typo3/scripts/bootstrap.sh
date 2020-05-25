@@ -70,6 +70,10 @@ installRecursive() {
 # Create the public webroot if necessary
 makeDirectory "$PROJECT_DIR"
 
+# Create the Fractal directories if necessary
+makeDirectory "$PROJECT_DIR/components"
+makeDirectory "$PROJECT_DIR/docs"
+
 # Install TYPO3
 if [[ ! -f "/www/composer.json" ]]; then
     cd "/www" || exit 1
