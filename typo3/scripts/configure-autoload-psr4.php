@@ -84,10 +84,12 @@ foreach ($argv as $argument) {
 
 // If an entry should be added
 if (($mode === MODE_ADD) && ($namespace !== null) && ($directory !== null)) {
-    $composerConfig               = fromComposerJson();
-    $autoloadConfig               = $composerConfig->{$autoload} ?? new stdClass();
-    $autoloadConfig->{$namespace} = $directory;
-    $composerConfig->{$autoload}  = $autoloadConfig;
+    $composerConfig                   = fromComposerJson();
+    $autoloadConfig                   = $composerConfig->{$autoload} ?? new stdClass();
+    $autoloadConfigPsr4               = $autoloadConfig->{'psr-4'} ?? new stdClass();
+    $autoloadConfigPsr4->{$namespace} = $directory;
+    $autoloadConfig->{'psr-4'}        = $autoloadConfigPsr4;
+    $composerConfig->{$autoload}      = $autoloadConfig;
     toComposerJson($composerConfig);
 }
 
@@ -95,9 +97,17 @@ if (($mode === MODE_ADD) && ($namespace !== null) && ($directory !== null)) {
 if (($mode === MODE_DELETE) && ($namespace !== null)) {
     $composerConfig = fromComposerJson();
     if (isset($composerConfig->{$autoload})) {
-        unset($composerConfig->{$autoload}->{$namespace});
-        if (!count(get_object_vars($composerConfig->{$autoload}))) {
-            unset($composerConfig->{$autoload});
+        $autoloadConfig                   = $composerConfig->{$autoload};
+        if (isset($autoloadConfig->{'psr-4'})) {
+            unset($autoloadConfig->{'psr-4'}->{$namespace});
+            if (!count(get_object_vars($autoloadConfig->{'psr-4'}))) {
+                unset($autoloadConfig->{'psr-4'});
+            }
+            if (!count(get_object_vars($autoloadConfig))) {
+                unset($composerConfig->{$autoload});
+            } else {
+                $composerConfig->{$autoload} = $autoloadConfig;
+            }
         }
         toComposerJson($composerConfig);
     }

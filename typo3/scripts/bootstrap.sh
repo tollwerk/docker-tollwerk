@@ -146,9 +146,9 @@ if [[ "${TYPO3_PROJECT_EXTENSION}" != "" ]] && [[ ! -e "$EXTENSION_TARGET_DIR" ]
     cd "/www" || exit 1
     installRecursive "$EXTENSION_SOURCE_DIR" "$EXTENSION_TARGET_DIR" 1 || exit 7
     cd "/www" || exit 1
-    php /scripts/configure-autoload-psr4.php --add "Tollwerk/$EXTENSION_KEY_UCC" "Classes"
-    php /scripts/configure-autoload-psr4.php --add --dev "Tollwerk/$EXTENSION_KEY_UCC/Tests" "Tests"
-    php /scripts/configure-autoload-psr4.php --add --dev "Tollwerk/$EXTENSION_KEY_UCC/Component" "Components"
+    php /scripts/configure-autoload-psr4.php --add "Tollwerk/$EXTENSION_KEY_UCC" "public/typo3conf/ext/$TYPO3_PROJECT_EXTENSION/Classes"
+    php /scripts/configure-autoload-psr4.php --add --dev "Tollwerk/$EXTENSION_KEY_UCC/Tests" "public/typo3conf/ext/$TYPO3_PROJECT_EXTENSION/Tests"
+    php /scripts/configure-autoload-psr4.php --add --dev "Tollwerk/$EXTENSION_KEY_UCC/Component" "public/typo3conf/ext/$TYPO3_PROJECT_EXTENSION/Components"
     composer dump-autoload -o || exit 8
     php vendor/bin/typo3 extension:activate "${TYPO3_PROJECT_EXTENSION}"
 fi
