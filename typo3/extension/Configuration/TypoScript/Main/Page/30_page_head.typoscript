@@ -1,3 +1,29 @@
+# PAGE TITLE
+config {
+    noPageTitle = 0
+    pageTitleFirst = 1
+    pageTitleSeparator = |
+    pageTitleSeparator.noTrimWrap = | | |
+    pageTitleProviders {
+        flex {
+            provider = Tollwerk\TwBase\Domain\Provider\FlexPageTitleProvider
+            before = record
+        }
+
+        seo {
+            provider = Tollwerk\TwBase\Domain\Provider\SeoPageTitleProvider
+            before = flex
+        }
+    }
+}
+
+[page['uid'] == '1']
+    config.noPageTitle = 2
+    page.headerData.50 = TEXT
+    page.headerData.50.field = title
+    page.headerData.50.wrap = <title class="p-name">|</title>
+[global]
+
 # FONTS
 page.headerData.100 = TEXT
 page.headerData.100.value (
@@ -5,20 +31,11 @@ page.headerData.100.value (
 )
 page.headerData.100 >
 
-# FAVICON / TOUCH ICONS
-page.headerData.200 = FILE
-page.headerData.200.file = EXT:EXTENSION_KEY_SC/Resources/Public/App/Meta.html
-
-# META
-page.meta.author = AUTHOR_NAME
-page.meta.robots = index,follow
-page.meta.viewport = width=device-width, initial-scale=1
-page.meta.description.field = description
-
 # CSS
 page.includeCSS {
     # fonts = http://fonts.googleapis.com/css?family=Droid+Sans:400,700|Droid+Serif:400,700,400italic
     # fonts.external = 1
+    default = /typo3temp/assets/css/PROJECT_KEY-default.min.css
 }
 
 page.CSS_inlineStyle >
@@ -27,6 +44,8 @@ config.inlineStyle2TempFile = 1
 # JAVASCRIPT
 page.includeJS {
     #    html5 = https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js
+    critical = EXT:EXTENSION_KEY_SC/Resources/Public/EXTENSION_KEY_SC-critical.min.js
+    default = EXT:EXTENSION_KEY_SC/Resources/Public/EXTENSION_KEY_SC-default.min.js
 }
 
 page.includeJSFooter {

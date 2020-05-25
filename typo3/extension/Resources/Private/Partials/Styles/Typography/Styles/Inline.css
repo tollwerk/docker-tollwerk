@@ -1,3 +1,7 @@
 mark {
-	background-color: var(--bgcolor-selection);
+    background-color: var(--bgcolor-selection);
+}
+
+abbr {
+    cursor: help;
 }

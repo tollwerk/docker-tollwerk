@@ -1,21 +1,26 @@
 @critical {
-	.Heading {
-		line-height: var(--line-height--headings);
-		margin: var(--heading-spacing) 0;
+    .Heading {
+        line-height: var(--line-height--headings);
+        margin: var(--heading-spacing) 0;
 
-		.webfonts & {
-			font-family: var(--font-family--display);
-		}
-	}
+        .has-webfonts & {
+            font-family: var(--font-family--display);
+        }
+    }
 
-	/* Heading levels */
-	@each $size in xx-large, x-large, large, medium, small, x-small {
-		.Heading--$(size) {
-			font-size: var(--heading-size--$(size));
-		}
-	}
+    .Heading--sub {
+        font-weight: var(--font-weight--bold);
+    }
 
-	.Heading--hidden {
-		@add-mixin hide-element;
-	}
+    /* Heading levels */
+    @each $size in xx-large, x-large, large, medium, small, x-small {
+        .Heading--$(size) {
+        font-size: var(--heading-fallback-size--$(size));
+        font-size: var(--heading-size--$(size));
+    }
+    }
+
+    .Heading--hidden {
+        @add-mixin hide-element;
+    }
 }

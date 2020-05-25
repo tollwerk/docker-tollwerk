@@ -1,6 +1,16 @@
 :root {
-	--z-index--max: 4;
-	--z-index--top: 3;
-	--z-index--medium: 2;
-	--z-index--elevated: 1;
+    /* Transitions */
+    --transition-time: 150ms;
+    --transition-time--slow: 250ms;
+    --transition-time--very-slow: .5s;
+    --transition-time--snappy: 120ms;
+    --transition: var(--transition-time) cubic-bezier(.45, .05, .55, .95);
+    --transition--slow: var(--transition-time--slow) cubic-bezier(.45, .05, .55, .95);
+    --transition--snappy: var(--transition-time--snappy) cubic-bezier(1, 0, 0, 1);
+
+    --z-index--menu: 5;
+    --z-index--max: 4;
+    --z-index--top: 3;
+    --z-index--medium: 2;
+    --z-index--elevated: 1;
 }

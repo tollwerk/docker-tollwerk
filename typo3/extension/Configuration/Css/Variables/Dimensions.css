@@ -15,4 +15,10 @@
 
     /* Font spacing */
     --heading-spacing: .5rem;
+
+    /* Touch targets */
+    --min-touch-target-dimension: 48px;
+
+    /* Line width */
+    --line-width: 2px;
 }

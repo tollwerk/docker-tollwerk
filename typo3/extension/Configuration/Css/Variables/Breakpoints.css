@@ -1,11 +1,19 @@
 :root {
-    --breakpoint--xsmall: 25rem;
-    --breakpoint--small: 32rem;
-    --breakpoint--medium: 42rem;
-    --breakpoint--large: 52rem;
-    --breakpoint--xlarge: 58rem;
-    --breakpoint--xxlarge: 64rem;
-    --breakpoint--xxxlarge: 75rem;
+    --breakpoint-width--xsmall: 25;
+    --breakpoint-width--small: 32;
+    --breakpoint-width--medium: 42;
+    --breakpoint-width--large: 52;
+    --breakpoint-width--xlarge: 58;
+    --breakpoint-width--xxlarge: 64;
+    --breakpoint-width--xxxlarge: 75;
+
+    --breakpoint--xsmall: calc(var(--breakpoint-width--xsmall) * 1rem);
+    --breakpoint--small: calc(var(--breakpoint-width--small) * 1rem);
+    --breakpoint--medium: calc(var(--breakpoint-width--medium) * 1rem);
+    --breakpoint--large: calc(var(--breakpoint-width--large) * 1rem);
+    --breakpoint--xlarge: calc(var(--breakpoint-width--xlarge) * 1rem);
+    --breakpoint--xxlarge: calc(var(--breakpoint-width--xxlarge) * 1rem);
+    --breakpoint--xxxlarge: calc(var(--breakpoint-width--xxxlarge) * 1rem);
 }
 
 @custom-media --bp-none--min all;

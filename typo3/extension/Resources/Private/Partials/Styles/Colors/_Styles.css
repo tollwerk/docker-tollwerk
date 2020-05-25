@@ -1,137 +1,137 @@
 .color-swatches {
-	list-style-type: none;
-	font-size: .9rem;
-	font-family: monospace;
-	line-height: 1.2;
+    list-style-type: none;
+    font-size: .9rem;
+    font-family: monospace;
+    line-height: 1.2;
 
-	& li {
-		margin-bottom: 1em;
-		margin-right: 1em;
-		display: inline-block;
-		width: 15em;
-	}
+    & li {
+        margin-bottom: 1em;
+        margin-right: 1em;
+        display: inline-block;
+        width: 15em;
+    }
 
-	& div {
-		padding: .5em;
-		height: 15em;
-	}
+    & div {
+        padding: .5em;
+        height: 15em;
+    }
 
-	& .var {
-		font-size: 1em;
-		padding: 0 .5em;
-		margin: .5em 0;
-	}
+    & .var {
+        font-size: 1em;
+        padding: 0 .5em;
+        margin: .5em 0;
+    }
 
-	&, & dl {
-		margin: 0;
-		padding: 0;
-	}
+    &, & dl {
+        margin: 0;
+        padding: 0;
+    }
 
-	& dl {
-		white-space: nowrap;
-	}
+    & dl {
+        white-space: nowrap;
+    }
 
-	& dt {
-		float: left;
-		clear: left;
-		width: 2.5em;
+    & dt {
+        float: left;
+        clear: left;
+        width: 2.5em;
 
-		&.ctw {
-			background-color: #fff;
-		}
+        &.ctw {
+            background-color: #fff;
+        }
 
-		&.ctb {
-			background-color: #000;
-		}
-	}
+        &.ctb {
+            background-color: #000;
+        }
+    }
 
-	& dd {
-		margin-left: 3em;
-	}
+    & dd {
+        margin-left: 3em;
+    }
 }
 
 .color-system {
-	text-align: right;
+    text-align: right;
 }
 
 .color-system-hues {
-	margin: .5em 0;
+    margin: .5em 0;
 }
 
 .color-original {
-	margin: 0;
-	color: #fff;
-	font-size: 1vw;
-	font-family: monospace;
-	font-weight: normal;
-	line-height: 1;
-	text-align: center;
-	padding: .5vw 0;
-	display: none;
+    margin: 0;
+    color: #fff;
+    font-size: 1vw;
+    font-family: monospace;
+    font-weight: normal;
+    line-height: 1;
+    text-align: center;
+    padding: .5vw 0;
+    display: none;
 
-	& span {
-		cursor: help;
-	}
+    & span {
+        cursor: help;
+    }
 
-	:checked ~ .color-system-hues & {
-		display: block;
-	}
+    :checked ~ .color-system-hues & {
+        display: block;
+    }
 }
 
 .color-scale {
-	text-align: left;
-	padding: 0;
-	margin: 0;
-	list-style: none;
-	display: flex;
-	font-size: 1vw;
-	font-family: monospace;
-	line-height: 1;
+    text-align: left;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    font-size: 1vw;
+    font-family: monospace;
+    line-height: 1;
 
-	& li {
-		color: #000;
-		height: auto;
-		flex-grow: 1;
-		flex-basis: 0;
-		position: relative;
-		padding: .5vw;
+    & li {
+        color: #000;
+        height: auto;
+        flex-grow: 1;
+        flex-basis: 0;
+        position: relative;
+        padding: .5vw;
 
-		&:nth-child(n+6) {
-			color: #fff;
-		}
+        &:nth-child(n+6) {
+            color: #fff;
+        }
 
-		&:before {
-			content: '';
-			float: left;
-			padding-top: 100%;
-		}
+        &:before {
+            content: '';
+            float: left;
+            padding-top: 100%;
+        }
 
-		& span {
-			cursor: help;
-		}
-	}
+        & span {
+            cursor: help;
+        }
+    }
 }
 
 .color-hue {
 }
 
 .color-name {
-	position: absolute;
-	top: .5vw;
-	right: .5vw;
+    position: absolute;
+    top: .5vw;
+    right: .5vw;
 }
 
 .color-details {
-	position: absolute;
-	left: .5vw;
-	bottom: .5vw;
+    position: absolute;
+    left: .5vw;
+    bottom: .5vw;
 }
 
 .color-contrast,
 .color-luminance {
-	display: none;
+    display: none;
 
-	:checked ~ .color-system-hues .color-scale & {
-		display: block;
-	}
+    :checked ~ .color-system-hues .color-scale & {
+        display: block;
+    }
 }

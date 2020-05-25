@@ -28,6 +28,9 @@
             <trans-unit id="backendLayout.cell.main">
                 <source>Main Content</source>
             </trans-unit>
+            <trans-unit id="ckeditor.classes.pathway">
+                <source>Pathway</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>

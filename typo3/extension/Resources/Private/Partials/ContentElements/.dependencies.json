@@ -1,0 +1,8 @@
+{
+  "Critical.js": [
+    "EXTENSION_KEY_SC/Resources/Private/Partials/Styles/Base/Critical"
+  ],
+  "Styles.css": [
+    "EXTENSION_KEY_SC/Resources/Private/Partials/Styles"
+  ]
+}

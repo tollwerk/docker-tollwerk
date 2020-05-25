@@ -1,4 +1,6 @@
-<INCLUDE_TYPOSCRIPT: source="DIR:./BackendLayouts" extensions="tsconfig">
+<INCLUDE_TYPOSCRIPT: source="DIR:EXT:EXTENSION_KEY_SC/Configuration/TypoScript/Main/TSconfig/BackendLayouts" extensions="tsconfig">
+<INCLUDE_TYPOSCRIPT: source="DIR:EXT:EXTENSION_KEY_SC/Configuration/TypoScript/Main/TSconfig/ContentElements" extensions="tsconfig">
+
 
 # NEEDED IN CASE OF MORE THAN 1 LANGUAGE
 mod.SHARED {
@@ -11,14 +13,50 @@ TCEMAIN.table.tt_content {
 }
 
 TCEFORM.sys_file_reference.crop.config.cropVariants {
-#    square {
-#        title = Square
-#        selectedRatio = 1:1
-#        allowedAspectRatios {
-#            1:1 {
-#                title = 1:1
-#                value = 1
-#            }
-#        }
-#    }
+    wide {
+        title = Wide
+        selectedRatio = 2:1
+        allowedAspectRatios {
+            2:1 {
+                title = 2:1
+                value = 2
+            }
+        }
+    }
+
+    medium {
+        title = Medium
+        selectedRatio = 4:3
+        allowedAspectRatios {
+            4:3 {
+                title = 4:3
+                value = 1.3333333
+            }
+        }
+    }
+
+    square {
+        title = Square
+        selectedRatio = 1:1
+        allowedAspectRatios {
+            1:1 {
+                title = 1:1
+                value = 1
+            }
+        }
+    }
+
+    narrow {
+        title = Narrow
+        selectedRatio = 3:4
+        allowedAspectRatios {
+            3:4 {
+                title = 3:4
+                value = 0.75
+            }
+        }
+    }
 }
+
+# Custom CKEditor preset
+RTE.default.preset = tollwerk

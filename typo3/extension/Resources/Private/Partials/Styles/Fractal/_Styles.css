@@ -11,7 +11,7 @@ html {
 
 		border-radius: 2rem;
 		background: #eee;
-		will-change: transition;
+		/*will-change: transition;*/
 		transition: 100ms background;
 		padding: .125rem .75rem;
 
@@ -42,6 +42,11 @@ html {
 
 		@media (--bp-xxlarge--min) {
 			content: 'xxlarge';
+			background: #0004e5;
+		}
+
+		@media (--bp-xxxlarge--min) {
+			content: 'xxxlarge';
 			background: #0004e5;
 		}
 	}

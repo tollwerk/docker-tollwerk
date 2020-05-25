@@ -23,4 +23,8 @@ plugin.EXTENSION_KEY_CMP {
     settings {
         enable = {$plugin.EXTENSION_KEY_CMP.settings.enable}
     }
+
+    features {
+        exportComponents = {$plugin.EXTENSION_KEY_CMP.features.exportComponents}
+    }
 }

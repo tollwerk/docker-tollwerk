@@ -1,0 +1,15 @@
+#mod.wizards.newContentElement.wizardItems.tollwerk {
+#    header = LLL:EXT:EXTENSION_KEY_SC/Resources/Private/Language/locallang_tca.xlf:tollwerk
+#    elements {
+#        EXTENSION_KEY_CMP_example {
+#            iconIdentifier = tollwerk-example
+#            title = LLL:EXT:EXTENSION_KEY_SC/Resources/Private/Language/locallang_tca.xlf:EXTENSION_KEY_CMP_example.wizard.title
+#            description = LLL:EXT:EXTENSION_KEY_SC/Resources/Private/Language/locallang_tca.xlf:EXTENSION_KEY_CMP_example.wizard.description
+#            tt_content_defValues {
+#                CType = EXTENSION_KEY_CMP_example
+#            }
+#        }
+#    }
+#
+#    show := addToList(EXTENSION_KEY_CMP_example)
+#}

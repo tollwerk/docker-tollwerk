@@ -1,3 +1,14 @@
+lib.parseFunc_RTE {
+    nonTypoTagStdWrap.encapsLines.encapsTagList = p,pre,h1,h2,h3,h4,h5,h6,hr,dl,dt,dd,address
+    externalBlocks {
+        dl >
+        dl {
+            stripNL = 1
+            stdWrap.parseFunc =< lib.parseFunc
+        }
+    }
+}
+
 lib.contentElement {
     templateRootPaths.20 = EXT:tw_base/Resources/Private/Templates/
     templateRootPaths.30 = EXT:EXTENSION_KEY_SC/Resources/Private/Templates/

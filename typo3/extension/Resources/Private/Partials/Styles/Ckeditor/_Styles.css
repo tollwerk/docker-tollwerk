@@ -1,0 +1,55 @@
+body {
+	[lang]::after {
+		content: '';
+		display: inline-block;
+		width: 12px;
+		height: 12px;
+		background-repeat: no-repeat;
+		background-size: cover;
+		vertical-align: center;
+		margin-left: .2em;
+	}
+
+	[lang=de]::after {
+		background-image: url('/typo3/sysext/core/Resources/Public/Icons/Flags/DE.png');
+	}
+
+	[lang=en]::after {
+		background-image: url('/typo3/sysext/core/Resources/Public/Icons/Flags/GB.png');
+	}
+
+	[lang=fr]::after {
+		background-image: url('/typo3/sysext/core/Resources/Public/Icons/Flags/FR.png');
+	}
+
+	a.pathway {
+		margin-left: 1em;
+		background-image: none;
+		text-decoration: none;
+		color: var(--color-link--default);
+		border-bottom: var(--line-width) solid rgba(0, 0, 0, 0);
+		transition: border-color var(--transition--snappy);
+
+		&::before {
+			content: '»';
+			display: inline-block;
+			width: 1em;
+			margin-left: -1em;
+			transition: text-indent var(--transition);
+		}
+
+		a:hover &, a:focus &,
+		&:hover, &:focus {
+			color: var(--color-link--hocus);
+			border-color: currentColor;
+
+			&::before {
+				text-indent: .3em;
+			}
+		}
+
+		&:focus {
+			outline: 1px solid currentColor;
+		}
+	}
+}

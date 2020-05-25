@@ -1,7 +1,7 @@
 plugin.tx_form {
     settings {
         yamlConfigurations {
-            100 = EXT:tw_tollwerk/Configuration/Yaml/CustomFormSetup.yaml
+            100 = EXT:EXTENSION_KEY_SC/Configuration/Yaml/CustomFormSetup.yaml
         }
     }
 }
@@ -9,7 +9,7 @@ plugin.tx_form {
 module.tx_form {
     settings {
         yamlConfigurations {
-            100 = EXT:tw_tollwerk/Configuration/Yaml/CustomFormSetup.yaml
+            100 = EXT:EXTENSION_KEY_SC/Configuration/Yaml/CustomFormSetup.yaml
         }
     }
 }

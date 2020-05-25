@@ -1,9 +1,12 @@
 # Render an unstyled version of the page
-unstyledPage < page
-unstyledPage {
+nakedPage < page
+nakedPage {
     typeNum = 2800
     headTag >
     headTag = <head>
     headerData.100 >
-    headerData.200 >
+    includeCSS >
+    includeJS >
+    CSS_inlineStyle >
+    cssInline >
 }

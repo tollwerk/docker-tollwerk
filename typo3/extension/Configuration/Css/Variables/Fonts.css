@@ -4,6 +4,14 @@
     --font-family--subset: 'Subsetted';
     --font-family--display: 'Display';
 
+    --fluid-min-width: var(--breakpoint-width--xsmall);
+    --fluid-max-width: var(--breakpoint-width--xxxlarge);
+    --fluid-min-size: 20;
+    --fluid-max-size: 21;
+    --fluid-min-ratio: 1.125;
+    --fluid-max-ratio: 1.25;
+    --fluid-screen: 100vw;
+
     --font-typographic-scale: 1.4;
 
     /* Font sizes */
@@ -22,6 +30,8 @@
     --heading-size--medium: var(--font-size--kilo);
     --heading-size--small: var(--font-size--uno);
     --heading-size--x-small: var(--font-size--uno);
+
+    /* See https://utopia.fyi/ for fluid responsive fonts */
 
     /* Font weights */
     --font-weight: 400;

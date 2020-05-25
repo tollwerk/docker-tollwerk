@@ -15,4 +15,9 @@ plugin.EXTENSION_KEY_CMP {
         # cat=plugin.EXTENSION_KEY_CMP/common/a; type=options[Off=0,On=1]; label=LLL:EXT:EXTENSION_KEY_SC/Resources/Private/Language/locallang_db.xlf:common.enable
         enable = 0
     }
+
+    features {
+        # cat=plugin.EXTENSION_KEY_CMP/enable/a; type=boolean; label=LLL:EXT:tw_componentlibrary/Resources/Private/Language/locallang_core.xlf:enable.export
+        exportComponents =
+    }
 }

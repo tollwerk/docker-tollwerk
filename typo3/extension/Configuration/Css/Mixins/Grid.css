@@ -1,118 +1,76 @@
-
-@define-mixin col $target, $container: var(--grid-columns), $gutter: var(--grid-gutter), $property: width {
-	$(property): calc($target * (100% - $gutter) / $container);
-}
-
-@define-mixin col-outer $target, $container: var(--grid-columns), $gutter: var(--grid-gutter), $property: width {
-	$(property): calc($target * (100% - $gutter) / $container + $gutter);
-}
-
-@define-mixin col-inner $target, $container: var(--grid-columns), $gutter: var(--grid-gutter), $property: width {
-	$(property): calc($target * (100% - $gutter) / $container - $gutter);
-}
-
-
 /* Grid margins */
 @define-mixin grid-internal-prefix $gutter, $columns, $prefix {
-	& > * {
-		margin: 0 calc($gutter / 2);
-	}
+    -ms-grid-columns: 1fr ($gutter 1fr)[ calc($columns - 1) ];
+    grid-column-gap: $gutter;
 
-	& > .xl, & > .xb,  & > .$(prefix)xl, & > .$(prefix)xb {
-		margin-left: calc($gutter / -2);
-	}
+    & > .xl, & > .xb, & > .$(prefix)xl[class], & > .$(prefix)xb[class] {
+    margin-left: calc(0 - $gutter);
+}
 
-	& > .xr, & > .xb, & > .$(prefix)xr, & > .$(prefix)xb {
-		margin-right: calc($gutter / -2);
-	}
+    & > .xr, & > .xb, & > .$(prefix)xr[class], & > .$(prefix)xb[class] {
+    margin-right: calc(0 - $gutter);
+}
 
-	& > .$(prefix)s0.$(prefix)s0 {
-		margin-left: calc($gutter / 2);
-	}
+    & > .$(prefix)xn[class] {
+    margin-left: 0;
+    margin-right: 0;
+}
 
-	@for $column from 1 to $columns {
-		& > .c$(column), & > .$(prefix)c$(column).$(prefix)c$(column) {
-			&, &.$(prefix)xn.$(prefix)xn {
-				width: calc($column * (100% / $columns) - $gutter);
-			}
+    @for $column from 1 to $columns {
+        & > .$(prefix)c$(column) {
+        -ms-grid-column-span: calc(($column - 1) * 2 + 1);
+        grid-column-end: span $column;
+    }
 
-			&.xl, &.xr, &.$(prefix)xl, &.$(prefix)xr {
-				width: calc($column * (100% / $columns));
-			}
-
-			&.xb, &.$(prefix)xb {
-				width: calc($column * (100% / $columns) + $gutter);
-			}
-		}
-
-		/* Shifting */
-		& > .s$(column), & > .$(prefix)s$(column).$(prefix)s$(column)  {
-			&, &.$(prefix)xn.$(prefix)xn {
-				margin-left: calc($column * (100% / $columns) + $gutter / 2);
-			}
-
-			&.xl, &.xb, &.$(prefix)xl, &.$(prefix)xb {
-				margin-left: calc($column * (100% / $columns) - $gutter / 2);
-			}
-		}
-	}
+        /* Positioning */
+        & > .$(prefix)p$(column)  {
+        -ms-grid-column: calc(($column - 1) * 2 + 1);
+        grid-column-start: col-start $column;
+    }
+    }
 }
 
 /* Grid margins */
 @define-mixin grid-internal $gutter, $columns {
-	& > * {
-		margin: 0 calc($gutter / 2);
-	}
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr ($gutter 1fr)[ calc($columns - 1) ];
+    grid-template-columns: repeat($columns, [col-start] 1fr [col-end]);
+    grid-column-gap: $gutter;
 
-	& > .xl, & > .xb {
-		margin-left: calc($gutter / -2);
-	}
+    & > .xl, & > .xb {
+        margin-left: calc(0 - $gutter);
+    }
 
-	& > .xr, & > .xb {
-		margin-right: calc($gutter / -2);
-	}
+    & > .xr, & > .xb {
+        margin-right: calc(0 - $gutter);
+    }
 
-	@for $column from 1 to $columns {
-		& > .c$(column) {
-			width: calc($column * (100% / $columns) - $gutter);
+    @for $column from 2 to $columns {
+        & > .c$(column) {
+        -ms-grid-column-span: calc(($column - 1) * 2 + 1);
+        grid-column-end: span $column;
+    }
 
-			&.xl, &.xr {
-				width: calc($column * (100% / $columns));
-			}
-
-			&.xb {
-				width: calc($column * (100% / $columns) + $gutter);
-			}
-		}
-
-		/* Shifting */
-		& > .s$(column)  {
-			margin-left: calc($column * (100% / $columns) + $gutter / 2);
-
-			&.xl, &.xb {
-				margin-left: calc($column * (100% / $columns) - $gutter / 2);
-			}
-		}
-	}
+        /* Positioning */
+        & > .p$(column)  {
+        -ms-grid-column: calc(($column - 1) * 2 + 1);
+        grid-column-start: col-start $column;
+    }
+    }
 }
 
 /* Grid */
 @define-mixin grid $breakpoints, $gutters, $defaultGutter, $columns {
-	.grid {
-		@mixin-content;
-		display: flex;
+    .grid {
+        @mixin-content;
+        @add-mixin grid-internal $defaultGutter, $columns;
 
-		& > * {
-			width: 100%;
-		}
-
-		@add-mixin grid-internal $defaultGutter, $columns;
-
-		/* Margins */
-		@each $breakpoint, $gutter in $breakpoints, $gutters {
-			@media (--bp-$(breakpoint)--min) {
-				@add-mixin grid-internal-prefix $gutter, $columns, $(breakpoint)-;
-			}
-		}
-	}
+        /* Breakpoints */
+        @each $breakpoint, $gutter in $breakpoints, $gutters {
+            @media (--bp-$(breakpoint)--min) {
+                @add-mixin grid-internal-prefix $gutter, $columns, $(breakpoint)-;
+            }
+        }
+    }
 }

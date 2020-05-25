@@ -1,10 +1,20 @@
-@add-mixin grid (small, medium, large), (var(--grid-gutter), var(--grid-gutter), var(--grid-gutter)), var(--grid-gutter--half), 6 {
-	box-sizing: border-box;
-	max-width: var(--grid-maxwidth);
-	margin: auto;
-	padding: 0 calc(var(--grid-gutter) / 2);
+@add-mixin grud (small, medium, large), (var(--grid-gutter), var(--grid-gutter), var(--grid-gutter)), var(--grid-gutter--half), 6 {
+    box-sizing: border-box;
+    max-width: var(--grid-maxwidth);
+    margin: auto;
+    padding-left: var(--grid-gutter) !important;
+    padding-right: var(--grid-gutter) !important;
 
-	@media (--bp-small--max) {
-		padding: 0 calc(var(--grid-gutter--small) / 2);
-	}
+    &:not(.grid--novgap) > * + * {
+        margin-top: calc(2 * var(--grid-gutter));
+    }
+
+    @media (--bp-small--max) {
+        padding-left: var(--grid-gutter--small) !important;
+        padding-right: var(--grid-gutter--small) !important;
+
+        &:not(.grid--novgap) > * + * {
+            margin-top: calc(2 * var(--grid-gutter--small));
+        }
+    }
 }

@@ -9,8 +9,6 @@ config.renderCharset = utf-8
 # URLS
 config.absRefPrefix = /
 config.simulateStaticDocuments = 0
-config.tx_realurl_enable = 0
-config.tx_cooluri_enable = 0
 config.redirectOldLinksToNew = 0
 config.jumpurl_enable = 0
 
@@ -25,13 +23,14 @@ config.index_enable = 1
 config.index_externals = 1
 
 # EMAIL SPAM PROTECTION
-config.spamProtectEmailAddresses = 1
+config.spamProtectEmailAddresses = 0
 config.spamProtectEmailAddresses_atSubst = (at)
 
 # COMMON PAGE CONFIGURATION
 page.config.admPanel = 0
 config {
     intTarget = _self
+    extTarget = _self
     removeDefaultJS = external
     removeDefaultCss = 1
     removePageCss = 1

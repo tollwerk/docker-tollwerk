@@ -1,4 +1,4 @@
 <INCLUDE_TYPOSCRIPT: source="DIR:./Lib" extensions="typoscript">
 <INCLUDE_TYPOSCRIPT: source="DIR:./Page" extensions="typoscript">
-<INCLUDE_TYPOSCRIPT: source="DIR:./Lang" extensions="typoscript">
 <INCLUDE_TYPOSCRIPT: source="DIR:./Plugins" extensions="typoscript">
+<INCLUDE_TYPOSCRIPT: source="DIR:./ContentElements" extensions="typoscript">

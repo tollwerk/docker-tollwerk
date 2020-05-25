@@ -1,0 +1,42 @@
+# FAVICON / TOUCH ICONS
+page.headerData.200 = FLUIDTEMPLATE
+page.headerData.200 {
+    templateName = Manifest.html
+    layoutRootPaths {
+        10 = EXT:EXTENSION_KEY_SC/Resources/Private/Layouts
+    }
+
+    partialRootPaths {
+        10 = EXT:EXTENSION_KEY_SC/Resources/Private/Partials
+    }
+
+    templateRootPaths {
+        10 = EXT:EXTENSION_KEY_SC/Resources/Private/Templates
+    }
+
+    extbase.controllerExtensionName = EXTENSION_KEY_SC
+}
+
+# CANONICAL
+page.headerData.300 < lib.canonical
+page.headerData.300.wrap = <link rel="canonical" href="|"/>
+
+# AUTHOR
+page.headerData.301 = TEXT
+page.headerData.301.value = tollwerk GmbH
+page.headerData.301.override.field = author
+page.headerData.301.wrap = <meta name="author" content="|"/>
+
+# DESCRIPTION
+page.headerData.302 = TEXT
+page.headerData.302.value = Default description English
+page.headerData.302.value.de = Standard-Beschreibung Deutsch
+page.headerData.302.override.field = description
+page.headerData.302.wrap = <meta name="description" content="|"/>
+
+# META
+page.meta.robots = index,follow
+page.meta.robots.override = noindex,follow
+page.meta.robots.override.if.isTrue.field = no_search
+page.meta.viewport = width=device-width, initial-scale=1
+page.meta.X-UA-Compatible = IE=edge

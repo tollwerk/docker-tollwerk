@@ -26,7 +26,7 @@
                             <span class="color-details">
                         <span class="color-hex" title="Hexadecimal color">{tone.hex}</span>
                         <span class="color-contrast"><span title="Contrast against white">{tone.white}</span> / <span
-                                title="Contrast against black">{tone.black}</span></span>
+                            title="Contrast against black">{tone.black}</span></span>
                         <span class="color-luminance" title="Luminance">{tone.luminance}</span>
                     </span>
                         </li>
@@ -35,19 +35,9 @@
             </f:for>
         </div>
         <textarea id="copy" class="hide-element"><f:for each="{hues}" as="originaltones" key="hue"><f:for
-                each="{originaltones.tones}" as="tone" key="name" iteration="i">--color-{hue}--{name}: {tone.hex};
+            each="{originaltones.tones}" as="tone" key="name" iteration="i">--color-{hue}--{name}: {tone.hex};
                 </f:for>
         </f:for></textarea>
         <button type="button" onclick="copyToClipboard()">Copy to clipboard</button>
-        <script><![CDATA[
-            function copyToClipboard() {
-                var cssField = document.getElementById('copy');
-                cssField.value = cssField.value.trim().split("\n").map(function (s) {
-                    return s.trim();
-                }).join("\n");
-                cssField.select();
-                document.execCommand('copy');
-            }
-        ]]></script>
     </div>
 </html>

@@ -1,0 +1,7 @@
+#tt_content {
+#    EXTENSION_KEY_CMP_example < lib.contentElement
+#    EXTENSION_KEY_CMP_example {
+#        templateName = Example.html
+#        extbase.controllerExtensionName = EXTENSION_KEY_SC
+#    }
+#}

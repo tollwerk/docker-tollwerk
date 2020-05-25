@@ -1,14 +1,14 @@
 @critical {
-	.informal {
-		/* @see https://www.scottohara.me/blog/2019/01/12/lists-and-safari.html */
-		list-style-type: none;
-		/*list-style-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E");*/
-		margin: 0;
-		padding: 0;
+    .informal {
+        /* @see https://www.scottohara.me/blog/2019/01/12/lists-and-safari.html */
+        list-style-type: none;
+        /*list-style-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E");*/
+        margin: 0;
+        padding: 0;
 
-		& li::before {
-			content: "\200B"; /* add zero-width space */
-			position: absolute;
-		}
-	}
+        & li::before {
+            content: "\200B"; /* add zero-width space */
+            position: absolute;
+        }
+    }
 }

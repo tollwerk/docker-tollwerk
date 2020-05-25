@@ -2,4 +2,32 @@
     a {
         color: inherit;
     }
+
+    .pathway {
+        margin-left: 1em;
+        background-image: none;
+        text-decoration: none;
+        color: var(--color-link--default);
+        border-bottom: var(--line-width) solid rgba(0, 0, 0, 0);
+        transition: border-color var(--transition--snappy);
+
+        &::before {
+            content: '»';
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            transition: text-indent var(--transition);
+        }
+
+        a:hover &, a:focus &,
+        &:hover, &:focus {
+            color: var(--color-link--hocus);
+            border-color: currentColor;
+            outline: 0;
+
+            &::before {
+                text-indent: .3em;
+            }
+        }
+    }
 }

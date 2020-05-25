@@ -1,69 +1,85 @@
 @critical {
-	html {
-		min-height: 100%;
+    html {
+        --fluid-bp: calc((var(--fluid-screen) - (var(--fluid-min-width) * 1rem)) / (var(--fluid-max-width) - var(--fluid-min-width)));
+        min-height: 100%;
 
-		&.webfonts {
-			font-family: var(--font-family);
-		}
-	}
+        &.has-webfonts {
+            font-family: var(--font-family);
+        }
+    }
 
-	body {
-		height: 100%;
-		margin: 0;
-		font-feature-settings: "lnum";
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		color: var(--color-text--default);
-	}
+    @media (--bp-xxxlarge--min) {
+        html {
+            --fluid-screen: calc(var(--fluid-max-width) * 1rem);
+        }
+    }
 
-	body, input, textarea, select, button {
-		font: var(--font-weight) var(--font-size--uno)/var(--line-height) var(--font-family--subset);
+    body {
+        height: 100%;
+        margin: 0;
+        font-feature-settings: "lnum" 1, "liga" 1, "dlig" 1, "calt" 1;
+        color: var(--color-text--default);
+        background-color: var(--bgcolor-body);
+    }
 
-		.webfonts & {
-			font-family: var(--font-family);
-		}
-	}
+    body, input, textarea, select, button {
+        font: var(--font-weight) var(--font-size--uno)/var(--line-height) var(--font-family--subset);
 
-	input, textarea, select, button {
-		/*display: inline-block;
-		vertical-align: middle;*/
-	}
+        .has-webfonts & {
+            font-family: var(--font-family);
+        }
+    }
 
-	button > * {
-		position: relative; /* Prevent shifting while active in IE */
-	}
+    input, textarea, select, button {
+        /*display: inline-block;
+        vertical-align: middle;*/
+    }
 
-	main, aside, header, footer, figure {
-		display: block;
-	}
+    button > * {
+        position: relative; /* Prevent shifting while active in IE */
+    }
 
-	picture {
-		display: inline-block;
-	}
+    main, aside, header, footer, figure {
+        display: block;
+    }
 
-	figure {
-		margin: 0;
-	}
+    picture {
+        display: inline-block;
+    }
 
-	img,
-	object,
-	video,
-	audio {
-		max-width: 100%;
-		height: auto;
-	}
+    figure {
+        margin: 0;
+    }
 
-	iframe {
-		max-width: 100%;
-	}
+    img,
+    object,
+    video,
+    audio {
+        max-width: 100%;
+        height: auto;
+    }
 
-	template {
-		display: none;
-	}
+    iframe {
+        max-width: 100%;
+    }
 
-	*,
-	*::before,
-	*::after {
-		box-sizing: border-box;
-	}
+    template {
+        display: none;
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    [hidden] {
+        display: none;
+    }
+
+    ::selection {
+        color: var(--color-text--selection);
+        background-color: var(--bgcolor-selection);
+        text-decoration: underline;
+    }
 }
