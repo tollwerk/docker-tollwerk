@@ -1,4 +1,4 @@
-@add-mixin grud (small, medium, large), (var(--grid-gutter), var(--grid-gutter), var(--grid-gutter)), var(--grid-gutter--half), 6 {
+@add-mixin grid (small, medium, large), (var(--grid-gutter), var(--grid-gutter), var(--grid-gutter)), var(--grid-gutter--half), 6 {
     box-sizing: border-box;
     max-width: var(--grid-maxwidth);
     margin: auto;
