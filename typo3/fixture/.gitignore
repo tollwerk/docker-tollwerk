@@ -19,8 +19,9 @@
 !/gulp-tasks/**
 !/public
 !/public/.htaccess
-!/public/robots.txt
 !/public/favicon.ico
+!/public/fileadmin
+!/public/robots.txt
 !/public/typo3conf/
 !/public/typo3conf/ext/
 !/public/typo3conf/AdditionalConfiguration.php
