@@ -43,6 +43,11 @@ call_user_func(
             'Configuration/TypoScript/Static',
             'Project: PROJECT_NAME'
         );
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::registerPageTSConfigFile(
+            'EXTENSION_KEY_SC',
+            'Configuration/TypoScript/Main/TSconfig/page.tsconfig',
+            'Page Settings'
+        );
     }
 );
 
