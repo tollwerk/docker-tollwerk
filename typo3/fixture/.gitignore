@@ -8,7 +8,7 @@
 !/.gitmodules
 !/composer.json
 !/composer.lock
-!/fractal.js
+!/fractal.config.js
 !/package.json
 !/package-lock.json
 !/gulpfile.js

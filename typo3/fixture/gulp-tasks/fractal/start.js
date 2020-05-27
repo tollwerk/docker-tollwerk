@@ -1,7 +1,7 @@
 'use strict';
 
 const logger = require('fancy-log');
-const fractal = require('../../fractal');
+const fractal = require('../../fractal.config');
 
 module.exports = {
     task: params => {

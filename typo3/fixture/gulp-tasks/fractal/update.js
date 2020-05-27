@@ -7,7 +7,7 @@ module.exports = {
     task: params => {
         return function () {
             logger.info('Recompiling components ...');
-            return require('../../fractal')
+            return require('../../fractal.config')
                 .cli
                 ._execFromString('update-typo3');
         };
