@@ -74,12 +74,12 @@ fractal.components.set('statuses', Object.assign({
 }, fractal.components.get('statuses')));
 
 // If the Fractal instance is connected to a TYPO3 instance
-const TYPO3_URL = process.env.TYPO3_URL || 'http://localhost';
-if (TYPO3_URL) {
+const PROJECT_URL = process.env.PROJECT_URL || 'http://localhost';
+if (PROJECT_URL) {
     const logger = require('fancy-log');
     logger.log = logger.bind(logger);
     const typo3 = require('fractal-typo3');
-    typo3.configure(TYPO3_URL, !!parseInt(process.env.FRACTAL_DEVELOPMENT, 10), theme, logger);
+    typo3.configure(PROJECT_URL, !!parseInt(process.env.FRACTAL_DEVELOPMENT, 10), theme, logger);
     fractal.components.engine(typo3.engine);
     fractal.components.set('ext', '.t3s');
     fractal.cli.command('update-typo3', typo3.update, {

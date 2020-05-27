@@ -5,8 +5,10 @@
 'use strict';
 
 // Read in environment variables
-require('dotenv')
-    .config();
+require('dotenv').config();
+
+// Override Project URL
+process.env.PROJECT_URL = 'http://localhost';
 
 // General setup
 const projectKey = (process.env.PROJECT_KEY || 'unspecified').toLowerCase();
