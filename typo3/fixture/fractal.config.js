@@ -1,5 +1,8 @@
 'use strict';
 
+// Load environment variables
+require('dotenv').config();
+
 // Environment
 const FRACTAL_TITLE = process.env.FRACTAL_TITLE || 'Unspecified';
 const FRACTAL_COMPONENTS_LABEL = process.env.FRACTAL_COMPONENTS_LABEL || 'Patterns';
