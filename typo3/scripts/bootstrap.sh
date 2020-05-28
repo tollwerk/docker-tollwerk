@@ -155,10 +155,12 @@ fi
 
 # Reset a database by importing a database dump
 if [[ -f "/www/public/fileadmin/database.sql" ]] && [[ -f "/www/public/fileadmin/database.IMPORT_RESET" ]]; then
+    echo "Resetting database ..."
     cd "/www/public/fileadmin" || exit 1
     mysql -h "$TYPO3_INSTALL_DB_HOST" -P "$TYPO3_INSTALL_DB_PORT" -u "$TYPO3_INSTALL_DB_USER" \
         --password="$TYPO3_INSTALL_DB_PASSWORD" "$TYPO3_INSTALL_DB_DBNAME" <"/www/public/fileadmin/database.sql" || exit 9
     rm "/www/public/fileadmin/database.IMPORT_RESET"
+    echo "Database reset successful!"
 fi
 
 exec "$@"
