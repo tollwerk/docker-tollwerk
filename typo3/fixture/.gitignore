@@ -31,3 +31,5 @@
 /public/typo3conf/ext/*
 !/public/typo3conf/ext/EXTENSION_KEY_SC
 !/public/typo3conf/ext/EXTENSION_KEY_SC/**
+/public/typo3conf/ext/EXTENSION_KEY_SC/Resources/Public/**/*.min.css
+/public/typo3conf/ext/EXTENSION_KEY_SC/Resources/Public/**/*.min.js
