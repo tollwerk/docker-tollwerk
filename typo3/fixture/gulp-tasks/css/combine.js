@@ -8,5 +8,6 @@ module.exports = {
         combinePublicResourcesTask('critical', 'css', params, false),
         combinePublicResourcesTask('default', 'css', params, true)
     ),
-    watch: params => gulp.watch(`${params.extDist}*/Resources/Public/*-default.min.css`, gulp.series('css:combine'))
+    watch: params => gulp.watch(`${params.extDist}*/Resources/Public/*-default.min.css`, gulp.series('css:combine')),
+    dtp: 2
 };

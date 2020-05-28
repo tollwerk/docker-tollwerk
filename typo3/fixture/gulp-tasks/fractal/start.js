@@ -24,5 +24,5 @@ module.exports = {
                 });
         };
     },
-    dtp: 2
+    dtp: 31
 };

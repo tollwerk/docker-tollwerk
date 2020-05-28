@@ -137,5 +137,6 @@ function compileCss(file, params) {
 module.exports = {
     task: params => compileCss(null, params),
     watch: params => gulp.watch([`${params.extDist}*/Configuration/Css/**/*.css`, `${params.extDist}*/Resources/Private/Partials/**/*.css`])
-        .on('change', file => compileCss(file, params)())
+        .on('change', file => compileCss(file, params)()),
+    dtp: 1
 };

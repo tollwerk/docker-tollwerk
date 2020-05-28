@@ -187,5 +187,6 @@ function compileSvg(file, params) {
 module.exports = {
     task: params => compileSvg(null, params),
     watch: params => gulp.watch([`${params.extDist}*/Resources/Private/Graphics/**/*.svg`, `${params.extDist}*/Resources/Private/Graphics/Meta.json`])
-        .on('change', file => compileSvg(file, params)())
+        .on('change', file => compileSvg(file, params)()),
+    dtp: 20
 };

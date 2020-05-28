@@ -83,5 +83,6 @@ function compileJs(file, params) {
 module.exports = {
     task: params => compileJs(null, params),
     watch: params => gulp.watch(`${params.extDist}*/Resources/Private/Partials/**/*.js`)
-        .on('change', file => compileJs(file, params)())
+        .on('change', file => compileJs(file, params)()),
+    dtp: 10
 };
