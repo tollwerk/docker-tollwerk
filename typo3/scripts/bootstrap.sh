@@ -163,4 +163,13 @@ if [[ -f "/www/public/fileadmin/database.sql" ]] && [[ -f "/www/public/fileadmin
     echo "Database reset successful!"
 fi
 
+# Install Git hooks
+echo "Installing Git hooks ..."
+cd "/www"
+chmod +x ".githooks/post-merge" || exit 10
+git config --local core.hooksPath .githooks/ || exit 11
+cd "/www/public/fileadmin"
+chmod +x ".githooks/post-merge" || exit 10
+git config --local core.hooksPath .githooks/ || exit 11
+
 exec "$@"
