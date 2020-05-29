@@ -168,8 +168,10 @@ echo "Installing Git hooks ..."
 cd "/www"
 chmod +x ".githooks/post-merge" || exit 10
 git config --local core.hooksPath .githooks/ || exit 11
-cd "/www/public/fileadmin"
-chmod +x ".githooks/post-merge" || exit 10
-git config --local core.hooksPath .githooks/ || exit 11
+if [ -d "/www/public/fileadmin/.githooks" ]; then
+    cd "/www/public/fileadmin"
+    chmod +x ".githooks/post-merge" || exit 10
+    git config --local core.hooksPath .githooks/ || exit 11
+fi
 
 exec "$@"
