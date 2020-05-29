@@ -1,5 +1,5 @@
 {
-    "name": "PROJECT_NAME",
+    "name": "PROJECT_KEY",
     "description": "PROJECT_DESCRIPTION",
     "version": "1.0.0",
     "main": "public/index.php",
