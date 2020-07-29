@@ -17,8 +17,9 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/reposit
         git \
         mysql-client \
         pandoc \
+        bash \
     && chmod 0755 /scripts/* \
-    && sh /scripts/install-php.sh \
+    && /scripts/install-php.sh \
     && rm -rf /var/cache/apk/* /scripts
 
 # Expose port 80

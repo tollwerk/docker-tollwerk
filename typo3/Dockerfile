@@ -14,7 +14,7 @@ COPY typo3/extension /extension
 
 # Configure Apache for TYPO3
 RUN chmod 0755 /scripts/* \
-    && sh /scripts/configure-apache.sh \
+    && /scripts/configure-apache.sh \
     && ln -s /scripts/bootstrap.sh /bootstrap.sh
 
 # TYPO3 bootstrapping as entrypoint
