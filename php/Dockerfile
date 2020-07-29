@@ -27,6 +27,7 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/reposit
     && chmod 0755 /scripts/* \
     && apk --update --no-cache add \
         bash \
+        pandoc \
         graphicsmagick \
         graphviz \
         nodejs \
