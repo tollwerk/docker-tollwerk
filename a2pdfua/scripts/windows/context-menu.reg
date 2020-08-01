@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\.adoc]
+@="AsciiDoc"
+
+[HKEY_CLASSES_ROOT\AsciiDoc\shell\Zu PDF/UA konvertieren\command]
+@="\"C:\\Users\\joschi\\convert.bat\" \"%1\""

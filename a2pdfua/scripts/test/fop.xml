@@ -1,0 +1,17 @@
+<fop version="1.0">
+    <font-base>.</font-base>
+    <accessibility>true</accessibility>
+    <renderers>
+        <renderer mime="application/pdf">
+            <fonts>
+                <font kerning="yes"
+                      embed-url="fonts/Minimum.otf"
+                      embedding-mode="subset">
+                    <font-triplet name="Minimum" style="normal" weight="normal"/>
+                </font>
+                <auto-detect/>
+            </fonts>
+            <pdf-ua-mode>PDF/UA-1</pdf-ua-mode>
+        </renderer>
+    </renderers>
+</fop>

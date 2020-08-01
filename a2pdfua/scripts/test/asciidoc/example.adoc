@@ -1,0 +1,242 @@
+= Workflow: AsciiDoc zu barrierefreiem PDF
+:author:        Joschi Kuphal
+:email:         joschi@tollwerk.de
+:revdate:       5. April 2020
+:revnumber:     1.0.0
+:lang:          de
+:orgname:       tollwerk GmbH
+:description:   Einfaches AsciiDoc-Dokument zur Demonstration des PDF-Workflows
+:keywords:      AsciiDoc, PDF, workflow
+
+<<<
+
+Der hier beschriebene Workflow und die damit zur Verfügung gestellten Werkzeuge ermöglichen eine kommandozeilenbasierte Konvertierung von http://asciidoc.org[AsciiDoc]-Dokumenten in barrierefreie PDF-Dateien (https://de.wikipedia.org/wiki/PDF/UA[PDF/UA]).
+Die Konvertierungskette geht dabei den Weg AsciiDoc → XML → XSL-FO → PDF/UA (via https://xmlgraphics.apache.org/fop/[Apache FOP]).
+
+== Werkzeuge
+
+Kernstück des Workflows ist das Linux-Shell-Skript `a2pdfua.sh`, welches die sequentielle Nutzung verschiedener Linux-Programme steuert und vereinfacht.
+Für die komplette Konvertierungskette werden genutzt:
+
+* AsciiDoc
+* DocBook XML v4.5 / XSL-Stylesheets
+* Apache FOP
+
+=== Installation
+
+Die folgenden Installationshinweise gelten für Gentoo Linux. Unter anderen Betriebssystemen sind die jeweiligen Entsprechungen zu installieren.
+
+==== AsciiDoc
+[source,bourne]
+----------------------------------------------------------------------
+$ emerge app-text/asciidoc
+----------------------------------------------------------------------
+
+==== DocBook XML v4.5
+
+[source,bourne]
+----------------------------------------------------------------------
+$ emerge app-text/docbook-xsl-stylesheets
+----------------------------------------------------------------------
+
+==== Apache FOP
+
+[source,php]
+----------------------------------------------------------------------
+$ cd /usr/local/src/
+$ wget https://mirror.synyx.de/apache/xmlgraphics/fop/binaries/fop-2.4-bin.tar.gz
+$ tar -xzvf fop-2.4-bin.tar.gz
+----------------------------------------------------------------------
+
+[NOTE]
+Die Standard-Distribution von Apache FOP unterstützt nicht von Haus aus alle notwendigen Barrierefreiheitsfunktionalitäten.
+Ggf. muss eine angepasste Distribution genutzt werden.
+
+<<<
+
+== Syntax
+=== Absätze
+==== Normaler Absatz
+
+Textabschnitte ohne spezielle Auszeichnung werden als *normale Absätze* interpretiert. Bei der Konvertierung zum PDF werden sie weitgehend unverändert in die Ausgabe übernommen. Zeilenumbrüche im Quelldokument werden dabei ignoriert und es findet ein automatischer Zeilenumbruch Anwendung. Absätze werden untereinander durch eine Leerzeile getrennt.
+
+----------------------------------------------------------------------
+Dies ist ein gewöhnlicher Absatz.
+Zeilenumbrüche innerhalb eines Absatzes bleiben nicht erhalten.
+
+Absätze werden voneinander durch eine Leerzeile getrennt.
+----------------------------------------------------------------------
+
+Zeilen, die mit `//` beginnen, werden als *Kommentare* gewertet und bei der Konvertierung zum PDF unterdrückt. Das folgende Beispiel wird im Quelldokument von einem solchen Kommentar gefolgt — dieser erscheint jedoch nicht im PDF.
+
+----------------------------------------------------------------------
+// Kommentar mit zwei führenden Schrägstrichen
+----------------------------------------------------------------------
+// Diese Zeile wird im PDF nicht dargestellt
+
+==== Wortgetreuer Absatz
+
+Wenn ein Absatz im PDF genau so wiedergegeben werden soll, wie er geschrieben wurde, kann er auf zwei Arten zum *wortgetreuen Absatz* umgestellt werden. Wortgetreue Absätze werden in einer https://de.wikipedia.org/wiki/Nichtproportionale_Schriftart[nichtproportionalen Schrift] dargestellt. Beispiel:
+
+.Methode 1: Einrückung
+----------------------------------------------------------------------
+    Ein gerückte Absätze werden wortgetreu wiedergegeben
+----------------------------------------------------------------------
+
+.Methode 2: Mit "literal"-Stilangabe
+----------------------------------------------------------------------
+[literal]
+Dieser Absatz wird ebenfalls wortgetreu wiedergegeben.
+----------------------------------------------------------------------
+
+.Wortgetreuer Absatz (hier durch Einrückung)
+======================================================================
+    Dieser Absatz wird wortgetreu wiedergegeben.
+    Auch Zeilenumbrüche und *Formatierungen* bleiben so erhalten.
+======================================================================
+
+==== Zitate und Verse
+
+Zitate lassen sich mit der `quote`-Stilangabe wiedergeben.
+
+----------------------------------------------------------------------
+[quote, Pumuckl, Meister Eder und sein Pumuckl]
+Wo Hobelspäne sind ist alles gut. Ist ein altes Koboldsgesetz.
+----------------------------------------------------------------------
+
+.Zitat mit vollständiger Quellenangabe
+======================================================================
+[quote, Pumuckl, Meister Eder und sein Pumuckl]
+Wo Hobelspäne sind ist alles gut. Ist ein altes Koboldsgesetz.
+======================================================================
+
+.Zitat ohne Quellenangabe
+======================================================================
+[quote, Pumuckl]
+Wo Hobelspäne sind ist alles gut. Ist ein altes Koboldsgesetz.
+======================================================================
+
+Verse mit bewusst gesetzten Zeilenumbrüchen lassen sich mit der `verse`-Stilangabe wiedergeben:
+
+----------------------------------------------------------------------
+[verse, Pumuckl, Meister Eder und sein Pumuckl]
+Pumuckl verschwindet,
+niemand ihn findet,
+weil es nicht gibt,
+was man nicht sieht.
+----------------------------------------------------------------------
+
+.Vers mit bewussten Zeilenumbrüchen
+======================================================================
+[verse, Pumuckl, Meister Eder und sein Pumuckl]
+Pumuckl verschwindet,
+niemand ihn findet,
+weil es nicht gibt,
+was man nicht sieht.
+======================================================================
+
+==== Warnungen & Hinweise
+
+AsciiDoc kennt 5 verschiedene Warn- und Hinweisformate, die jeweils durch einen Schlüsselbegriff erzeugt werden können:
+
+[horizontal]
+*`NOTE`*:: Anmerkung
+*`TIP`*:: Tipp / Empfehlung
+*`IMPORTANT`*:: Wichtiger Abschnitt
+*`WARNING`*:: Warnhinweis
+*`CAUTION`*:: Achtung
+
+Die so markierten Abschnitte werden eingerückt dargestellt. Zusätzlich wird ihnen linkerhand ein typabhängiges Icon an die Seite gestellt, um die Bedeutung visuell zu unterstreichen. Die Formate werden jeweils durch ihren Schlüsselbegriff am Anfang eines Absatzes, gefolgt von einem Doppelpunkt, erzeugt. Alternativ kann das Schlüsselwort auch als Stilangabe vor den Absatz gestellt werden.
+
+----------------------------------------------------------------------
+NOTE: Dieser Absatz wird als Notizabschnitt dargestellt werden.
+
+[NOTE]
+Alternativ kann dem Absatz die `NOTE`-Stilangabe vorangestellt werden, um dieselbe
+Ausgabe zu erzeugen.
+----------------------------------------------------------------------
+
+NOTE: Diese Notiz wurde durch das Voranstellen des Schlüssebegriffs `NOTE` zu Beginn des Absatz erzeugt. Alternativ hätte die `[NOTE]`-Stilangabe in der Zeile vor dem Absatz Anwendung finden können.
+
+TIP: Durch `TIP` vor dem Absatz erzeugt können den Lesenden hilfreiche Empfehlungen gegeben werden.
+
+IMPORTANT: Wichtige Abschnitte können durch einen `IMPORTANT`-Abschnitt gekennzeichnet werden. Lesende werden so darauf hingewiesen, dass die Abschnittsinhalten unbedingt zu beachten sind.
+
+WARNING: Ein `WARNING`-Absatz weist die Lesenden darauf hin, dass bestimmtes Verhalten unter Umständen zu Problemen führen kann.
+
+CAUTION: Mit einem `CAUTION`-Absatz können Inhalte markiert werden, die besondere Aufmerksamkeit von den Lesenden erfordern.
+
+=== Textformatierung
+
+AsciiDoc unterstützt einen Satz unterschiedlicher Textformatierungen. Die einfachste Form findet Einsatz *an Wortgrenzen*:
+
+----------------------------------------------------------------------
+*Starke Hervorhebung* (aka fett)
+_Betonter Begriff_ (aka kursiv)
+`nicht-proportional` (aka Schreibmaschinenschrift)
+``doppelte'' und `einfache' typografische Anführungszeichen
+Keine \-- Ersetzungen (Ersetzungen siehe unten)
+^Hochgestellter^ Text
+~Tiefgestellter~ Text
+----------------------------------------------------------------------
+
+Die oben wiedergegebenen Formatierungen stellen sich nach der Konvertierung dar wie folgt:
+
+.Textformatierung an Wortgrenzen
+======================================================================
+* *Starke Hervorhebung* (aka fett)
+* _Betonter Begriff_ (aka kursiv)
+* `nicht-proportional` (aka Schreibmaschinenschrift)
+* ``doppelte'' und `einfache' typografische Anführungszeichen
+* Keine \-- Ersetzungen (Ersetzungen siehe unten)
+* ^Hochgestellter^ Text
+* ~Tiefgestellter~ Text
+======================================================================
+
+Innerhalb von Worten sind die Formatierungszeichen jeweils doppelt anzuwenden:
+
+----------------------------------------------------------------------
+**R**esponsive **W**eb **D**esign
+un__glaub__lich
+++Mono++kultur
+----------------------------------------------------------------------
+
+.Textformatierung innerhalb von Wörtern
+======================================================================
+* **R**esponsive **W**eb **D**esign
+* un__glaub__lich
+* ++Mono++kultur
+======================================================================
+
+=== Ersetzungen
+
+AsciiDoc kennt eine Liste von Ersetzungen, die standardmäßig angewendet werden (solange Ersetzungen nicht durch Formatierungen deaktiviert sind, siehe oben). Wichtig ist, dass die genutzten Schriftarten die jeweiligen Glyphen enthalten.
+
+[horizontal]
+`(C)`:: Copyright-Symbol (C)
+`(TM)`:: Trademark-Symbol (TM)
+`(R)`:: Symbol für registrierte Marken (R)
+`--`:: Gedankenstrich --
+`...`:: Dreipunkt ...
+`->`:: Pfeil nach rechts ->
+`<-`:: Pfeil nach links <-
+`=>`:: Doppelpfeil nach rechts =>
+`<=`:: Doppelpfeil nach links <=
+
+=== Horizontale Linien, Zeilen- & Seitenumbrüche
+
+Text für Steuerzeichen
+
+== Nützliche Links
+
+* https://docs.gitlab.com/ee/user/asciidoc.html[Gitlab AsciiDoc Kurzreferenz]
+* https://tdg.docbook.org/tdg/4.5/docbook.html[DokBook: The Definitive Guide]
+* http://docbook.sourceforge.net/release/xsl/current/doc/fo/[DocBook XSL Stylesheets Parameterreferenz]
+* https://xmlgraphics.apache.org/fop/[Apache FOP Project]
+** https://xmlgraphics.apache.org/fop/2.4/accessibility.html[Apache FOP Accessibility Features]
+** https://issues.apache.org/jira/issues/?jql=project%20%3D%20FOP%20AND%20resolution%20%3D%20Unresolved%20ORDER%20BY%20priority%20DESC[Apache FOP Issues]
+** https://www.data2type.de/xml-xslt-xslfo/xsl-fo/xslfo-referenz/[XSL-FO Referenz]
+
+== Dokumentkonvertierung
+
+image::tollwerk-team.jpg[scaledwidth="100%",alt="Tollwerk Team 2020"]

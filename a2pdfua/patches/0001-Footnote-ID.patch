@@ -1,0 +1,45 @@
+--- xmlgraphics-fop-fop-2_5/fop-core/src/main/java/org/apache/fop/render/pdf/PDFStructureTreeBuilder.java       2020-05-13 09:11:11.000000000 +0200
++++ fop.a11y/fop-core/src/main/java/org/apache/fop/render/pdf/PDFStructureTreeBuilder.java      2020-08-01 18:34:00.741312689 +0200
+@@ -34,6 +34,7 @@
+ import org.apache.fop.fo.extensions.ExtensionElementMapping;
+ import org.apache.fop.fo.extensions.InternalElementMapping;
+ import org.apache.fop.fo.pagination.Flow;
++import org.apache.fop.pdf.PDFArray;
+ import org.apache.fop.pdf.PDFFactory;
+ import org.apache.fop.pdf.PDFParentTree;
+ import org.apache.fop.pdf.PDFStructElem;
+@@ -94,7 +95,8 @@
+         addBuilder("basic-link",                new LinkBuilder());
+         // Out-of-Line Formatting Objects
+         addBuilder("float",                     StandardStructureTypes.Grouping.DIV);
+-        addBuilder("footnote",                  StandardStructureTypes.InlineLevelStructure.NOTE);
++        // addBuilder("footnote",                  StandardStructureTypes.InlineLevelStructure.NOTE);
++        addBuilder("footnote", new NoteIdHolderBuilder(StandardStructureTypes.InlineLevelStructure.NOTE));
+         addBuilder("footnote-body",             StandardStructureTypes.Grouping.SECT);
+         // Other Formatting Objects
+         addBuilder("wrapper",                   StandardStructureTypes.InlineLevelStructure.SPAN);
+@@ -214,6 +216,25 @@
+         }
+
+     }
++
++    private static class NoteIdHolderBuilder extends DefaultStructureElementBuilder {
++        // This is definitely not the best way to create unique IDs for all the notes in
++        // the document, but as far as the Matterhorn protocol is concerned, IDs won't get
++        // validated in any way. See https://taggedpdf.com/508-pdf-help-center/id-missing-in-note-structure-element/
++        private static int notecount = 0;
++
++        NoteIdHolderBuilder(StructureType structureType) {
++            super(structureType);
++        }
++
++        @Override
++        protected void setAttributes(PDFStructElem structElem, Attributes attributes) {
++            super.setAttributes(structElem, attributes);
++            PDFArray noteID = new PDFArray(++notecount);
++            structElem.put("ID", noteID);
++        }
++
++    }
+
+     private static class InlineHolderBuilder extends DefaultStructureElementBuilder {
