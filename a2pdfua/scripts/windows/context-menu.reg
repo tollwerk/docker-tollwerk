@@ -1,7 +1,23 @@
 Windows Registry Editor Version 5.00
 
-[HKEY_CLASSES_ROOT\.adoc]
-@="AsciiDoc"
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.adoc]
 
-[HKEY_CLASSES_ROOT\AsciiDoc\shell\Zu PDF/UA konvertieren\command]
-@="\"C:\\Users\\joschi\\convert.bat\" \"%1\""
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.adoc\shell]
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.adoc\shell\pdfua]
+"MUIVerb"="AsciiDoc zu PDF/UA"
+"subcommands"=""
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.adoc\shell\pdfua\shell]
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.adoc\shell\pdfua\shell\convert]
+@="Konvertieren"
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.adoc\shell\pdfua\shell\convert\command]
+@="\"C:\\Users\\joschi\\adoc2pdfua.bat\" \"%1\""
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.adoc\shell\pdfua\shell\convertkeep]
+@="Konvertieren (XML + XSL:FO erhalten)"
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.adoc\shell\pdfua\shell\convertkeep\command]
+@="\"C:\\Users\\joschi\\adoc2pdfua.bat\" -k \"%1\""

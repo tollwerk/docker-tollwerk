@@ -168,6 +168,9 @@
     </xsl:template>
 
     <!-- Headings -->
+    <xsl:attribute-set name="article.titlepage.recto.style">
+        <xsl:attribute name="role">H1</xsl:attribute>
+    </xsl:attribute-set>
     <xsl:attribute-set name="article.titlepage.verso.style">
         <xsl:attribute name="role">H1</xsl:attribute>
     </xsl:attribute-set>
