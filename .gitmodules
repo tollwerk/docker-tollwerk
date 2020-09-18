@@ -1,0 +1,6 @@
+[submodule "a2pdfua/scripts"]
+	path = a2pdfua/scripts
+	url = git@gitlab.tollwerk.net:tollwerk/adoc2pdfua.git
+[submodule "a2pdfua/themes/tollwerk"]
+	path = a2pdfua/themes/tollwerk
+	url = git@gitlab.tollwerk.net:tollwerk/adoc2pdfua-tollwerk.git

@@ -51,16 +51,17 @@ COPY --from=fop /usr/local/src/xmlgraphics-fop-fop-${FOP_VERSION}/fop/fop /usr/l
 
 # Install AsciiDoc & DocBook XSL
 RUN mkdir /fop && \
-    apk --update --no-cache add lcms2 bash asciidoc docbook-xsl
+    apk --update --no-cache add lcms2 freetype bash asciidoc docbook-xsl ttf-dejavu
 
 # Include custom FOP libs
 COPY --from=fop /usr/local/src/xmlgraphics-fop-fop-${FOP_VERSION}/fop /fop
 
-# Copy scripts
+# Copy scripts & themes
 COPY a2pdfua/scripts /scripts
+COPY a2pdfua/themes /themes
 
 # Expect build code to be mounted to /src
 WORKDIR "/project"
 
 # Ant as entrypoint
-ENTRYPOINT ["/scripts/a2pdfua.sh"]
+ENTRYPOINT ["/scripts/adoc2pdfua.sh"]
