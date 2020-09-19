@@ -5,7 +5,7 @@ FROM hub.tollwerk.net/tollwerk/ant:latest as fop
 LABEL maintainer="tollwerk GmbH <info@tollwerk.de>"
 
 # Copy patches
-COPY a2pdfua/patches /patches
+COPY adoc2pdfua/patches /patches
 
 # Build custom FOP
 ENV FOP_VERSION 2_5
@@ -57,8 +57,8 @@ RUN mkdir /fop && \
 COPY --from=fop /usr/local/src/xmlgraphics-fop-fop-${FOP_VERSION}/fop /fop
 
 # Copy scripts & themes
-COPY a2pdfua/scripts /scripts
-COPY a2pdfua/themes /themes
+COPY adoc2pdfua/scripts /scripts
+COPY adoc2pdfua/themes /themes
 
 # Expect build code to be mounted to /src
 WORKDIR "/project"
