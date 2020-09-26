@@ -12,6 +12,9 @@ FROM alpine:edge
 # Maintainer
 LABEL maintainer="tollwerk GmbH <info@tollwerk.de>"
 
+# Include Composer
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
 # Include primitive
 COPY --from=golang /go/bin/primitive /usr/local/bin/primitive
 
