@@ -6,6 +6,7 @@ LABEL maintainer="tollwerk GmbH <info@tollwerk.de>"
 
 # Copy the build shell scripts
 COPY typo3/scripts /scripts
+COPY .shared/scripts/configure-apache.sh /scripts/
 COPY .shared/config/php.ini /scripts/
 
 # Copy fixture & extension template files
