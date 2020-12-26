@@ -133,8 +133,12 @@ if [[ ! -e "/www/package.json" ]]; then
     fi
 
     # Substitute markers in particular files
+    substituteMarkers "/www/.githooks/pre-commit" || exit 6
     substituteMarkers "/www/.gitignore" || exit 6
+    substituteMarkers "/www/.gitlab-ci.yml || exit 6
     substituteMarkers "/www/package.json" || exit 6
+    substituteMarkers "/www/phpcs.xml" || exit 6
+    substituteMarkers "/www/phpunit.xml" || exit 6
 
     # Install Git hooks
     cd "/www" || exit 1
