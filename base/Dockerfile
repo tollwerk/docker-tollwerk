@@ -5,7 +5,7 @@ FROM httpd:2.4-alpine
 LABEL maintainer="tollwerk GmbH <info@tollwerk.de>"
 
 # Include Composer
-COPY --from=composer /usr/bin/composer /usr/bin/composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Copy install scripts
 COPY .shared/config/php.ini /scripts/
