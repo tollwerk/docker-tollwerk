@@ -94,7 +94,7 @@ if [[ ! -f "/www/composer.json" ]]; then
         "typo3/cms-t3editor:${TYPO3_VERSION}" \
         "typo3/cms-tstemplate:${TYPO3_VERSION}" \
         "typo3/cms-viewpage:${TYPO3_VERSION}" \
-        "typo3/cms-lang:${TYPO3_VERSION}" \
+        "typo3/cms-lang" \
         helhum/typo3-console \
         fluidtypo3/vhs \
         tollwerk/tw-base || exit 4
