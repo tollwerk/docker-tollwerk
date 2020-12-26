@@ -99,9 +99,15 @@ if [[ ! -f "/www/composer.json" ]]; then
         fluidtypo3/vhs \
         tollwerk/tw-base || exit 4
 
+    # Require development packages
+    composer require --dev phpmd/phpmd \
+        phpunit/phpunit \
+        sebastian/phpcpd \
+        squizlabs/php_codesniffer || exit 4
+
     # Install the component library (if requested)
     if [[ "${FRACTAL}" == "1" ]]; then
-        composer require tollwerk/tw-componentlibrary
+        composer require --dev tollwerk/tw-componentlibrary
     fi
 fi
 
