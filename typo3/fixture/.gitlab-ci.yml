@@ -1,0 +1,196 @@
+image: hub.tollwerk.net/tollwerk/php-ci:latest
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .npm/
+    - vendor/
+
+include:
+  - template: Code-Quality.gitlab-ci.yml
+
+variables:
+  FF_NETWORK_PER_BUILD: 1
+
+stages:
+  - prepare
+  - analyze
+  - build
+#  - test
+  - deploy
+
+composer:
+  stage: prepare
+  before_script:
+    - git config --global url."https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.tollwerk.net/".insteadOf "git@gitlab.tollwerk.net:"
+  script:
+    - php -v
+    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+    - cp .env.example .env
+#    - echo "CUSTOM_VARIABLE=$CUSTOM_VARIABLE" >> .env
+  artifacts:
+    paths:
+      - vendor/
+      - .env
+    expire_in: 1 days
+    when: always
+  cache:
+    paths:
+      - vendor/
+
+lint:
+  stage: prepare
+  before_script:
+    - rm -f package-lock.json
+    - npm --version
+    - npm install --cache .npm --prefer-offline eslint eslint-config-airbnb eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react-hooks eslint-plugin-react stylelint stylelint-config-standard stylelint-order stylelint-selector-bem-pattern postcss
+  script:
+    - npm run lint-js
+    - npm run lint-css
+  cache:
+    paths:
+      - .npm/
+
+code_quality:
+  stage: analyze
+  tags:
+    - code_quality
+  artifacts:
+    paths: [ gl-code-quality-report.json ]
+  rules:
+    - if: '$CODE_QUALITY_DISABLED'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"' # Run code quality job in merge request pipelines
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'      # Run code quality job in pipelines on the default branch (but not in other branch pipelines)
+    - if: '$CI_COMMIT_TAG'                               # Run code quality job in pipelines for tags
+  needs:
+    - job: composer
+      artifacts: true
+
+code_sniffer:
+  stage: analyze
+  script:
+    - ~/.composer/vendor/bin/phpcs --version
+    - ~/.composer/vendor/bin/phpcs --standard=phpcs.xml --extensions=php public/typo3conf/ext/EXTENSION_KEY_SC
+  needs:
+    - job: composer
+      artifacts: true
+
+copy_paste:
+  stage: analyze
+  script:
+    - ~/.composer/vendor/bin/phpcpd -v
+    - ~/.composer/vendor/bin/phpcpd public/typo3conf/ext/EXTENSION_KEY_SC/ --min-lines=50
+  needs:
+    - job: composer
+      artifacts: true
+
+mess_detector:
+  stage: analyze
+  script:
+    - ~/.composer/vendor/bin/phpmd --version
+    - ~/.composer/vendor/bin/phpmd public/typo3conf/ext/EXTENSION_KEY_SC text phpmd.xml
+  needs:
+    - job: composer
+      artifacts: true
+
+build_assets:
+  stage: build
+  needs:
+    - code_sniffer
+    - copy_paste
+    - mess_detector
+    - lint
+  before_script:
+    - git --version
+    - npm --version
+    - npm ci --cache .npm --prefer-offline
+    - gulp --version
+  script:
+    - gulp build
+    - gulp css:combine
+  artifacts:
+    paths:
+      - public/typo3conf/ext/EXTENSION_KEY_SC/Resources/Public/
+      - public/typo3temp/assets/
+    expire_in: 1 days
+    when: always
+
+#unit_tests:
+#  stage: test
+#  services:
+#    - name: mysql:8.0
+#      command: [ "--default-authentication-plugin=mysql_native_password" ]
+#  tags:
+#    - mysql
+#  needs:
+#    - job: composer
+#      artifacts: true
+#    - job: build_assets
+#      artifacts: true
+#  script:
+#    - php -v
+#    - mysql --host="${DB_HOST}" --user="${MYSQL_USER}" --password="${MYSQL_PASSWORD}" "${MYSQL_DATABASE}" < tests/fixture/directus/database/directus-*.sql
+#    - ./vendor/phpunit/phpunit/phpunit --version
+#    - php -d short_open_tag=off ./vendor/phpunit/phpunit/phpunit -v --configuration phpunit.xml --coverage-text --colors=never
+#  artifacts:
+#    paths:
+#      - public/assets/
+#      - storage/logs/
+#    expire_in: 1 days
+#    when: on_failure
+#  coverage: '/^\s*Lines:\s*\d+.\d+\%/'
+
+staging:
+  stage: deploy
+  needs:
+#    - job: unit_tests
+#      artifacts: false
+    - job: build_assets
+      artifacts: true
+  before_script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$STAGING_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - chmod 0755 ./dev/deploy-archive-commit.sh
+  script:
+    - >
+      ./dev/deploy-archive-commit.sh
+      --repository="git@gitlab.tollwerk.net:tollwerk/tollwerk-projekt.git" --branch="$CI_DEFAULT_BRANCH" --commit="$CI_COMMIT_SHA"
+      --host="$STAGING_HOST" --user="$STAGING_USER" --port="$STAGING_PORT"
+      --target="$STAGING_TARGET_DIRECTORY" --artifacts="public/typo3conf/ext/EXTENSION_KEY_SC/Resources/Public public/typo3temp/assets"
+  environment:
+    name: staging
+    url: https://tollwerk.dev
+  when: on_success
+  only:
+    - develop
+
+#production:
+#  stage: deploy
+#  needs:
+##    - job: unit_tests
+##      artifacts: false
+#    - job: build_assets
+#      artifacts: true
+#  before_script:
+#    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+#    - eval $(ssh-agent -s)
+#    - ssh-add <(echo "$PRODUCTION_PRIVATE_KEY")
+#    - mkdir -p ~/.ssh
+#    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+#    - chmod 0755 ./dev/deploy-archive-commit.sh
+#  script:
+#    - >
+#      ./dev/deploy-archive-commit.sh
+#      --repository="git@gitlab.tollwerk.net:tollwerk/tollwerk-projekt.git" --branch="$CI_DEFAULT_BRANCH" --commit="$CI_COMMIT_SHA"
+#      --host="$PRODUCTION_HOST" --user="$PRODUCTION_USER" --port="$PRODUCTION_PORT"
+#      --target="$PRODUCTION_TARGET_DIRECTORY" --artifacts="public/typo3conf/ext/EXTENSION_KEY_SC/Resources/Public public/typo3temp/assets"
+#  environment:
+#    name: production
+#    url: https://tollwerk.de
+#  when: manual
+#  only:
+#    - develop

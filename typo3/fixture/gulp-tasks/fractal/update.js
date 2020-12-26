@@ -13,5 +13,5 @@ module.exports = {
         };
     },
     watch: params => gulp.watch('public/typo3conf/ext/*/Components/**/*', gulp.series('fractal:update')),
-    dtp: 30
+    dtp: 100
 };

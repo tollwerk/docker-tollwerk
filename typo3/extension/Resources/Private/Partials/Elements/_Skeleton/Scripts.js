@@ -1,4 +1,4 @@
-(function (w, d) {
-    'use strict';
-
-})(typeof global !== 'undefined' ? global : window, document);
+(function iefe(w, d) {
+    // Replace with real code
+    return w && d;
+}(typeof global !== 'undefined' ? global : window, document));

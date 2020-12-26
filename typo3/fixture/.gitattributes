@@ -23,18 +23,38 @@
 *.ttf binary
 *.eot binary
 *.woff binary
+*.woff2 binary
 *.pyc binary
 *.pdf binary
 
-# Ignore all test and documentation with "export-ignore".
-/.codeclimate.yml export-ignore
+# Ignore hidden files & directories
 /.editorconfig export-ignore
+/.env export-ignore
+/.env.example export-ignore
+/.eslintrc export-ignore
+/.eslintignore export-ignore
 /.gitattributes export-ignore
 /.gitignore export-ignore
-/.scrutinizer.yml export-ignore
-/.travis.yml export-ignore
-/CHANGELOG.md export-ignore
-/README.md export-ignore
+/.gitlab-ci.yml export-ignore
+/.gitmodules export-ignore
+/.idea export-ignore
+/.stylelintrc.json export-ignore
+
+# Ignore directories
+/.githooks export-ignore
+/dev export-ignore
+/gulp-tasks export-ignore
+/node_modules export-ignore
+/vendor export-ignore
+
+# Ignore files
+/docker-compose.yml export-ignore
+/fractal.config.js export-ignore
+/gulpfile.js export-ignore
+/package.json export-ignore
+/package-lock.json export-ignore
+/phpcs.xml export-ignore
 /phpmd.xml export-ignore
 /phpunit.php export-ignore
-/phpunit.xml.dist export-ignore
+/phpunit.xml export-ignore
+/README.adoc export-ignore

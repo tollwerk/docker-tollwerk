@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+
+PROJECT=$(php -r "echo dirname(dirname(realpath('$0')));")
+cd "$PROJECT"
+
+# Check PHP files
+STAGED_FILES_PHP=$(git diff --cached --name-only --diff-filter=ACMR HEAD ':!.idea' | grep -e \\.php)
+echo $STAGED_FILES_PHP;
+if [ "$STAGED_FILES_PHP" != "" ]; then
+
+    # Checking PHP Lint
+    for FILE in $STAGED_FILES_PHP; do
+        php -l -d display_errors=0 "$PROJECT/$FILE" >/dev/null
+        if [ $? != 0 ]; then
+            echo "Fix the error(s) before commit."
+            exit 1
+        fi
+    done
+
+    # Running PHP Code Beautifier and Fixer (phpcbf)
+    vendor/bin/phpcbf -q --standard=phpcs.xml $STAGED_FILES_PHP
+    vendor/bin/phpcs -q --standard=phpcs.xml $STAGED_FILES_PHP
+    if [ $? != 0 ]; then
+        echo "Fix the error(s) before commit."
+        exit 2
+    fi
+
+    # Running PHP Copy/Paste Detector (phpcpd)
+    vendor/bin/phpcpd public/typo3conf/ext/EXTENSION_KEY_SC/ --min-lines=50
+    if [ $? != 0 ]; then
+        echo "Fix the error(s) before commit."
+        exit 3
+    fi
+
+    # Running PHP Mess Detector (phpmd)
+    vendor/bin/phpmd "$(echo $STAGED_FILES_PHP | sed -e 's/ /,/g')" text phpmd.xml
+    if [ $? != 0 ]; then
+        echo "Fix the error(s) before commit."
+        exit 4
+    fi
+
+    # Add back the modified files to staging
+    echo "$STAGED_FILES_PHP" | xargs git add
+fi
+
+# Check PostCSS files
+STAGED_FILES_CSS=$(git diff --cached --name-only --diff-filter=ACMR HEAD | grep -e \\.css)
+if [ "$STAGED_FILES_CSS" != "" ]; then
+
+    # Lint PostCSS
+    npm run lint-css
+    if [ $? != 0 ]; then
+        echo "Fix the error(s) before commit."
+        exit 5
+    fi
+
+    # Add back the modified files to staging
+    echo "$STAGED_FILES_CSS" | xargs git add
+fi
+
+# Check JavaScript files
+STAGED_FILES_JS=$(git diff --cached --name-only --diff-filter=ACMR HEAD | grep -e \\.js)
+if [ "$STAGED_FILES_JS" != "" ]; then
+
+    # Lint JavaScript
+    npm run lint-js
+    if [ $? != 0 ]; then
+        echo "Fix the error(s) before commit."
+        exit 6
+    fi
+
+    # Add back the modified files to staging
+    echo "$STAGED_FILES_JS" | xargs git add
+fi
