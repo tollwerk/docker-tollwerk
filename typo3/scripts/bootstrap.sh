@@ -79,29 +79,35 @@ if [[ ! -f "/www/composer.json" ]]; then
     cd "/www" || exit 1
     cp "/scripts/composer.json" "/www/composer.json" || exit 2
     substituteMarkers "/www/composer.json" || exit 3
-    composer require typo3/minimal "${TYPO3_VERSION}" \
-        typo3/cms-belog \
-        typo3/cms-beuser \
-        typo3/cms-filemetadata \
-        typo3/cms-fluid-styled-content \
-        typo3/cms-form \
-        typo3/cms-linkvalidator \
-        typo3/cms-lowlevel \
-        typo3/cms-reports \
-        typo3/cms-rte-ckeditor \
-        typo3/cms-scheduler \
-        typo3/cms-setup \
-        typo3/cms-t3editor \
-        typo3/cms-tstemplate \
-        typo3/cms-viewpage \
-        typo3/cms-lang \
+    composer require "typo3/minimal:${TYPO3_VERSION}" \
+        "typo3/cms-belog:${TYPO3_VERSION}" \
+        "typo3/cms-beuser:${TYPO3_VERSION}" \
+        "typo3/cms-filemetadata:${TYPO3_VERSION}" \
+        "typo3/cms-fluid-styled-content:${TYPO3_VERSION}" \
+        "typo3/cms-form:${TYPO3_VERSION}" \
+        "typo3/cms-linkvalidator:${TYPO3_VERSION}" \
+        "typo3/cms-lowlevel:${TYPO3_VERSION}" \
+        "typo3/cms-reports:${TYPO3_VERSION}" \
+        "typo3/cms-rte-ckeditor:${TYPO3_VERSION}" \
+        "typo3/cms-scheduler:${TYPO3_VERSION}" \
+        "typo3/cms-setup:${TYPO3_VERSION}" \
+        "typo3/cms-t3editor:${TYPO3_VERSION}" \
+        "typo3/cms-tstemplate:${TYPO3_VERSION}" \
+        "typo3/cms-viewpage:${TYPO3_VERSION}" \
+        "typo3/cms-lang" \
         helhum/typo3-console \
         fluidtypo3/vhs \
         tollwerk/tw-base || exit 4
 
+    # Require development packages
+    composer require --dev phpmd/phpmd \
+        phpunit/phpunit \
+        sebastian/phpcpd \
+        squizlabs/php_codesniffer || exit 4
+
     # Install the component library (if requested)
     if [[ "${FRACTAL}" == "1" ]]; then
-        composer require tollwerk/tw-componentlibrary
+        composer require --dev tollwerk/tw-componentlibrary
     fi
 fi
 
@@ -133,8 +139,12 @@ if [[ ! -e "/www/package.json" ]]; then
     fi
 
     # Substitute markers in particular files
+    substituteMarkers "/www/.githooks/pre-commit" || exit 6
     substituteMarkers "/www/.gitignore" || exit 6
+    substituteMarkers "/www/.gitlab-ci.yml || exit 6
     substituteMarkers "/www/package.json" || exit 6
+    substituteMarkers "/www/phpcs.xml" || exit 6
+    substituteMarkers "/www/phpunit.xml" || exit 6
 
     # Install Git hooks
     cd "/www" || exit 1

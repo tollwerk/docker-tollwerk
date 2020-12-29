@@ -8,6 +8,7 @@ apk --no-cache add \
   g++ \
   giflib \
   giflib-dev \
+  libavif \
   libtool \
   libjpeg-turbo \
   libjpeg-turbo-dev \
