@@ -27,7 +27,8 @@ composer:
     - php -v
     - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
     - cp .env.example .env
-#    - echo "CUSTOM_VARIABLE=$CUSTOM_VARIABLE" >> .env
+    - echo "PROJECT_KEY=$PROJECT_KEY" >> .env
+    - echo "TYPO3_PROJECT_EXTENSION=$TYPO3_PROJECT_EXTENSION" >> .env
   artifacts:
     paths:
       - vendor/

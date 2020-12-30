@@ -13,7 +13,7 @@ process.env.PROJECT_URL = 'http://localhost';
 
 // General setup
 const projectKey = (process.env.PROJECT_KEY || 'unspecified').toLowerCase();
-const providerExt = process.env.PROJECT_EXTENSION || `tw_${projectKey}`;
+const providerExt = process.env.TYPO3_PROJECT_EXTENSION || `tw_${projectKey}`;
 const dist = `./public/fileadmin/${projectKey}/`;
 const extDist = './public/typo3conf/ext/';
 const providerExtDist = `${extDist}${providerExt}/`;
