@@ -1,5 +1,5 @@
 # Image is based on Tollwerk PHP
-FROM hub.tollwerk.net/tollwerk/php:latest
+FROM hub.tollwerk.net/tollwerk/php:7.4
 
 # Maintainer
 LABEL maintainer="tollwerk GmbH <info@tollwerk.de>"
