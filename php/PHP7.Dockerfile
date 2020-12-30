@@ -19,22 +19,14 @@ COPY --from=golang /go/bin/primitive /usr/local/bin/primitive
 COPY php/scripts /scripts
 COPY php/config/* /scripts/
 COPY .shared/config/php.ini /scripts/
-COPY .shared/scripts/install-php.sh /scripts/
 
 # Install PHP and additional software
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories \
     && mkdir /www \
     && chmod 0755 /scripts/* \
-    && apk --update --no-cache add \
-        bash \
-        pandoc \
-        graphicsmagick \
-        graphviz \
-        nodejs \
-        php7-fpm \
-    && /scripts/install-php.sh \
-    && cp /scripts/php-fpm.conf /etc/php7/php-fpm.conf \
+    && apk --update --no-cache add bash \
     && /scripts/install.sh \
+    && /scripts/install-php7.sh \
     && /scripts/mozjpeg.sh "3.3.1" \
     && /scripts/webp.sh "1.0.3" \
     && /scripts/svgo.sh \
