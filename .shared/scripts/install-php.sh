@@ -1,51 +1,32 @@
 #!/bin/bash
 
-# Install PHP
-apk --update --no-cache add \
-  php7 \
-  php7-apcu \
-  php7-bcmath \
-  php7-bz2 \
-  php7-dom \
-  php7-ctype \
-  php7-curl \
-  php7-fileinfo \
-  php7-gd \
-  php7-iconv \
-  php7-imap \
-  php7-intl \
-  php7-json \
-  php7-mbstring \
-  php7-mcrypt \
-  php7-mysqli \
-  php7-opcache \
-  php7-openssl \
-  php7-pcntl \
-  php7-pdo \
-  php7-pdo_mysql \
-  php7-phar \
-  php7-posix \
-  php7-simplexml \
-  php7-session \
-  php7-soap \
-  php7-tidy \
-  php7-tokenizer \
-  php7-xml \
-  php7-xmlreader \
-  php7-xmlwriter \
-  php7-xdebug \
-  php7-xsl \
-  php7-zip
+# Install PHP extenions
+install-php-extensions apcu \
+    bcmath \
+    bz2 \
+    gd \
+    imap \
+    intl \
+    mcrypt \
+    mysqli \
+    opcache \
+    pcntl \
+    pdo_mysql \
+    soap \
+    tidy \
+    xdebug \
+    xsl \
+    zip
 
 # Configure PHP
-cp /scripts/php.ini /etc/php7/conf.d/50-settings.ini
+cp /scripts/php.ini /usr/local/etc/php/conf.d/docker-php-settings.ini
 
 ## Disable opcache on php 7.3 since that triggers segfaults 'zend_mm_heap corrupted' with vfsStream 1.6.4 (currently)
 ## Note: Still true?
-echo "opcache.enable_cli = 0" >>/etc/php7/conf.d/00_opcache.ini
+echo "opcache.enable_cli = 0" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
 
 # Configure Phar
-echo "phar.readonly = Off" >>/etc/php7/conf.d/01_phar.ini
+echo "phar.readonly = Off" >> /usr/local/etc/php/conf.d/docker-php-ext-phar.ini
 
 # Configure XDebug
-echo "xdebug.max_nesting_level = 400" >>/etc/php7/conf.d/xdebug.ini
+echo "xdebug.max_nesting_level = 400" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
