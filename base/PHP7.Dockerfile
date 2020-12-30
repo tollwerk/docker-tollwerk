@@ -8,8 +8,8 @@ LABEL maintainer="tollwerk GmbH <info@tollwerk.de>"
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Copy install scripts
+COPY base/scripts /scripts
 COPY .shared/config/php.ini /scripts/
-COPY .shared/scripts/install-php.sh /scripts/
 COPY base/scripts/httpd-foreground /usr/local/bin/
 
 # Copy PHP extension installer
@@ -18,7 +18,6 @@ ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/do
 # Install PHP and additional software
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/v$(cat /etc/alpine-release | cut -d'.' -f1,2)/main" >> /etc/apk/repositories \
     && echo "http://dl-cdn.alpinelinux.org/alpine/v$(cat /etc/alpine-release | cut -d'.' -f1,2)/community" >> /etc/apk/repositories \
-    && apk --update-cache add ca-certificates \
     && apk add --update-cache \
         apache2 \
         apache2-ctl \
@@ -28,6 +27,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/v$(cat /etc/alpine-release | cut 
         apache2-proxy-html \
         apache2-ssl \
         apache-mod-fcgid \
+        ca-certificates \
         libxml2-dev \
         git \
         mysql-client \
@@ -35,9 +35,9 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/v$(cat /etc/alpine-release | cut 
     && chmod 0755 /scripts/* \
     && chmod +x /usr/local/bin/install-php-extensions /usr/local/bin/httpd-foreground \
     && sync \
-    && /scripts/install-php.sh \
-    && rm -rf /var/cache/apk/* /scripts /usr/local/bin/install-php-extensions \
-    && php -v
+    && /scripts/install-php7.sh \
+    && php -v \
+    && rm -rf /var/cache/apk/* /scripts /usr/local/bin/install-php-extensions
 
 # Expose port 80
 EXPOSE 80
