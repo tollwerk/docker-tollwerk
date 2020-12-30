@@ -14,6 +14,6 @@ sed -i \
     -e 's/#\(ServerName www.example.com:80\)/ServerName localhost:80/' \
     -e 's/\/var\/www\/localhost\/htdocs/\/www\/public/' \
     -e 's/\(DirectoryIndex index.html\)/\1 index.php/' \
-    -e 's/AllowOverride None/AllowOverride All\n    SetEnvIf Host ^ APP_ENV=local/' \
+    -e 's/AllowOverride None/AllowOverride All\n    SetEnv APP_ENV local\n    SetEnv TYPO3_CONTEXT Development/' \
     /etc/apache2/httpd.conf;
 echo 'ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://php:9000/www/public/$1' >> /etc/apache2/httpd.conf;
