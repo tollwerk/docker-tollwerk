@@ -9,7 +9,7 @@ apk --update --no-cache add \
     g++ \
     giflib \
     giflib-dev \
-    graphicsmagick \
+    imagemagick \
     graphviz \
     libavif-apps \
     libtool \

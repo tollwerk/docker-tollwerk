@@ -5,7 +5,7 @@ FROM hub.tollwerk.net/tollwerk/php:7.4
 LABEL maintainer="tollwerk GmbH <info@tollwerk.de>"
 
 # Include Composer
-COPY --from=composer /usr/bin/composer /usr/bin/composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Install Laravel Envoy
 RUN composer global require phpmd/phpmd squizlabs/php_codesniffer sebastian/phpcpd
