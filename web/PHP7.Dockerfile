@@ -1,5 +1,5 @@
 # Image is based on Tollwerk Base
-FROM hub.tollwerk.net/tollwerk/base:latest
+FROM hub.tollwerk.net/tollwerk/base:7.4
 
 # Maintainer
 LABEL maintainer="tollwerk GmbH <info@tollwerk.de>"

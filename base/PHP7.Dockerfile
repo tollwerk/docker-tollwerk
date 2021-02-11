@@ -10,7 +10,6 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copy install scripts
 COPY base/scripts /scripts
 COPY .shared/config/php.ini /scripts/
-COPY base/scripts/httpd-foreground /usr/local/bin/
 
 # Copy PHP extension installer
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
@@ -33,7 +32,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/v$(cat /etc/alpine-release | cut 
         mysql-client \
         bash \
     && chmod 0755 /scripts/* \
-    && chmod +x /usr/local/bin/install-php-extensions /usr/local/bin/httpd-foreground \
+    && chmod +x /usr/local/bin/install-php-extensions \
     && sync \
     && /scripts/install-php7.sh \
     && php -v \
@@ -42,5 +41,5 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/v$(cat /etc/alpine-release | cut 
 # Expose port 80
 EXPOSE 80
 
-# Run Apache
-CMD ["httpd-foreground"]
+# Run Apache as the default command
+CMD ["httpd", "-D", "FOREGROUND"]

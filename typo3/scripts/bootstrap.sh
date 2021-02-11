@@ -103,11 +103,12 @@ if [[ ! -f "/www/composer.json" ]]; then
     composer require --dev phpmd/phpmd \
         phpunit/phpunit \
         sebastian/phpcpd \
-        squizlabs/php_codesniffer || exit 4
+        squizlabs/php_codesniffer \
+        typo3/fluid-schema-generator || exit 4
 
     # Install the component library (if requested)
     if [[ "${FRACTAL}" == "1" ]]; then
-        composer require --dev tollwerk/tw-componentlibrary
+        composer require --dev tollwerk/tw-componentlibrary alom/graphviz
     fi
 fi
 
