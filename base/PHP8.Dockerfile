@@ -38,8 +38,14 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/v$(cat /etc/alpine-release | cut 
     && php -v \
     && rm -rf /var/cache/apk/* /scripts /usr/local/bin/install-php-extensions
 
+# https://httpd.apache.org/docs/2.4/stopping.html#gracefulstop
+STOPSIGNAL SIGWINCH
+
 # Expose port 80
 EXPOSE 80
 
+# Use a custom script for starting the webserver
+COPY .shared/scripts/httpd-foreground /usr/local/bin/
+
 # Run Apache as the default command
-CMD ["httpd", "-D", "FOREGROUND"]
+CMD ["httpd-foreground"]

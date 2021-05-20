@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+
+# Apache gets grumpy about PID files pre-existing
+rm -f /run/apache2/httpd.pid
+
+# Redirect the logs
+ln -sf /proc/$$/fd/1 /var/log/apache2/access.log
+ln -sf /proc/$$/fd/2 /var/log/apache2/error.log
+
+exec httpd -DFOREGROUND "$@"

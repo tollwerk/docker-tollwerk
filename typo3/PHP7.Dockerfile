@@ -22,4 +22,4 @@ RUN chmod 0755 /scripts/* \
 ENTRYPOINT ["/bootstrap.sh"]
 
 # Run Apache as the default command
-CMD ["httpd", "-D", "FOREGROUND"]
+CMD ["httpd-foreground"]
