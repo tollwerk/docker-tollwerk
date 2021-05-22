@@ -12,8 +12,8 @@ RUN composer global require phpmd/phpmd squizlabs/php_codesniffer sebastian/phpc
 
 # Install SSH client & configure PHP
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories \
-    && apk --update --no-cache add openssh-client mysql-client nodejs nodejs-npm rsync git \
-        autoconf automake g++ libc6-compat libjpeg-turbo-dev libpng-dev make nasm libtool \
+    && apk --update --no-cache add openssh-client mysql-client nodejs npm rsync git \
+        autoconf automake g++ libc6-compat libjpeg-turbo-dev libpng-dev make nasm libtool asciidoctor \
     && rm -rf /var/cache/apk/*
 
 # Install the Gulp CLI tool
