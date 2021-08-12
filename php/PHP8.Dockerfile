@@ -31,6 +31,7 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/reposit
     && /scripts/webp.sh "1.0.3" \
     && /scripts/svgo.sh \
     && /scripts/finalize.sh \
+    && mv /scripts/setup-ssmtp.sh /usr/local/bin \
     && rm -rf /var/cache/apk/* /scripts
 
 # Expose port 9000

@@ -23,4 +23,6 @@ apk --update --no-cache add \
     pkgconf \
     nasm \
     npm \
-    sdl-dev
+    sdl-dev \
+    ssmtp \
+    mailutils
