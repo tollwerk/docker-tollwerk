@@ -10,6 +10,7 @@ apk --update --no-cache add \
     giflib \
     giflib-dev \
     geoip \
+    ghostscript \
     graphicsmagick \
     graphviz \
     libavif-apps \
