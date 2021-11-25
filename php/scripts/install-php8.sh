@@ -28,13 +28,13 @@ apk --update --no-cache add \
     php8-simplexml \
     php8-session \
     php8-soap \
-    php8-tidy \
     php8-tokenizer \
     php8-xml \
     php8-xmlreader \
     php8-xmlwriter \
     php8-xsl \
     php8-zip
+#    php8-tidy \
 
 # Configure PHP
 cp /scripts/php.ini /etc/php8/conf.d/50-settings.ini
