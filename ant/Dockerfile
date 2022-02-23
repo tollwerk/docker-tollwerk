@@ -5,7 +5,7 @@ FROM maven:3-jdk-8-alpine
 LABEL maintainer="tollwerk GmbH <info@tollwerk.de>"
 
 # Installs Ant
-ENV ANT_VERSION 1.10.8
+ENV ANT_VERSION 1.10.12
 RUN cd && \
     wget -q https://downloads.apache.org/ant/binaries/apache-ant-${ANT_VERSION}-bin.tar.gz && \
     tar -xzf apache-ant-${ANT_VERSION}-bin.tar.gz && \
