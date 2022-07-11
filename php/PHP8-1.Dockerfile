@@ -38,7 +38,7 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/reposit
 EXPOSE 9000
 
 # Add default command
-CMD ["php-fpm8", "-F"]
+CMD ["php-fpm81", "-F"]
 
 # https://github.com/ChrisB9/php8-xdebug/blob/main/php-dev-8.dockerfile
 # https://github.com/eko/docker-symfony/blob/master/php-fpm/Dockerfile
