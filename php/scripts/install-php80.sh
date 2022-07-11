@@ -20,6 +20,7 @@ apk --update --no-cache add \
     php8-opcache \
     php8-openssl \
     php8-pcntl \
+    php8-pecl-redis \
     php8-pecl-xdebug \
     php8-pdo \
     php8-pdo_mysql \

@@ -20,6 +20,7 @@ apk --update --no-cache add \
     php81-opcache \
     php81-openssl \
     php81-pcntl \
+    php81-pecl-redis \
     php81-pecl-xdebug \
     php81-pdo \
     php81-pdo_mysql \
