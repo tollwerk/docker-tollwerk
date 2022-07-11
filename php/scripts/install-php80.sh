@@ -28,13 +28,14 @@ apk --update --no-cache add \
     php8-simplexml \
     php8-session \
     php8-soap \
+    php8-sodium \
     php8-tokenizer \
     php8-xml \
     php8-xmlreader \
     php8-xmlwriter \
     php8-xsl \
     php8-zip
-#    php8-tidy \
+#        php8-tidy \
 
 # Configure PHP
 cp /scripts/php.ini /etc/php8/conf.d/50-settings.ini
@@ -53,4 +54,4 @@ echo "xdebug.mode=develop,coverage" >>/etc/php8/conf.d/50_xdebug.ini
 echo "xdebug.max_nesting_level = 400" >>/etc/php8/conf.d/50_xdebug.ini
 
 # Symlink PHP CLI
-ln -s /usr/bin/php8 /usr/bin/php
+#ln -s /usr/bin/php8 /usr/bin/php

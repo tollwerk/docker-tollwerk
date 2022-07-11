@@ -26,9 +26,9 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/reposit
     && chmod 0755 /scripts/* \
     && apk --update --no-cache add bash \
     && /scripts/install.sh \
-    && /scripts/install-php8.sh \
+    && /scripts/install-php81.sh \
     && /scripts/mozjpeg.sh "3.3.1" \
-    && /scripts/webp.sh "1.0.3" \
+    && /scripts/webp.sh "1.0" \
     && /scripts/svgo.sh \
     && /scripts/finalize.sh \
     && mv /scripts/setup-ssmtp.sh /usr/local/bin \

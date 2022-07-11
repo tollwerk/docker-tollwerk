@@ -29,6 +29,7 @@ apk --update --no-cache add \
     php7-simplexml \
     php7-session \
     php7-soap \
+    php7-sodium \
     php7-tidy \
     php7-tokenizer \
     php7-xml \
