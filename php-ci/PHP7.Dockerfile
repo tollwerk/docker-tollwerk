@@ -8,7 +8,7 @@ LABEL maintainer="tollwerk GmbH <info@tollwerk.de>"
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Install Laravel Envoy
-RUN composer global require phpmd/phpmd squizlabs/php_codesniffer sebastian/phpcpd
+RUN ln -s /usr/bin/php7 /usr/bin/php && composer global require phpmd/phpmd squizlabs/php_codesniffer sebastian/phpcpd
 
 # Install SSH client & configure PHP
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories \

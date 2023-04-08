@@ -55,4 +55,4 @@ echo "xdebug.mode=develop,coverage" >>/etc/php81/conf.d/50_xdebug.ini
 echo "xdebug.max_nesting_level = 400" >>/etc/php81/conf.d/50_xdebug.ini
 
 # Symlink PHP CLI
-ln -s /usr/bin/php81 /usr/bin/php
+#ln -s /usr/bin/php81 /usr/bin/php
